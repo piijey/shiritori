@@ -22,3 +22,38 @@
   background-color:white;
   color: #283431;
 }
+
+.container {
+  margin-top: 10px;
+  align-items: left; /*左右*/
+  width: 40rem;
+  background-color:white;
+  color: #283431;
+  padding: 10px;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+td {
+  text-align: center; /* テキストを中央に配置 */
+}
+
+.usersurface {
+  color: gray;
+  background-color: #f3fafa; /* 薄い青色の背景 */
+}
+
+.userreading {
+  background-color: #caf1f1; /* 薄い青色の背景 */
+}
+
+.systemsurface {
+  color: gray;
+  background-color: #faf2ea; /* 薄い橙色の背景 */
+}
+
+.systemreading {
+  background-color: #fee5c8; /* 薄い橙色の背景 */
+}
