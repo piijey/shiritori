@@ -1,10 +1,17 @@
+body {
+  background-color: #283431; /* `.App` と同じ背景色に設定 */
+}
+
 .title {
   text-align: center;
-  background-color: #283431;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 0px;
   color:white;
+  background-color: #3c4643;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .App {
@@ -12,24 +19,28 @@
   flex-direction: column;
   align-items: center; /*左右*/
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
   background-color: #283431;
-  height: 100vh;
+  width: 100%;
 }
 
 .card {
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   width: 40rem;
   background-color:white;
   color: #283431;
 }
 
 .container {
-  margin-top: 10px;
   align-items: left; /*左右*/
   width: 40rem;
   background-color:white;
   color: #283431;
   padding: 10px;
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 p {
@@ -56,4 +67,15 @@ td {
 
 .systemreading {
   background-color: #fee5c8; /* 薄い橙色の背景 */
+}
+
+.inputpanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /*左右*/
+  text-align: center;
+  background-color: #3c4643;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
