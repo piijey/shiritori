@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
 import { useTokenizerInitializer } from './TokenizerInitializer';
 import { useWordSubmissionForm } from './WordSubmissionForm';
+import { useGameStateManager } from './GameStateManager';
+import { useRuleValidator } from './RuleValidator';
 import { useShiritoriGrid } from './ShiritoriGrid';
+
 import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
 import BarLoader from "react-spinners/BarLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,7 +13,6 @@ import './App.css';
 
 function App() {
   const { loading, tokenizer } = useTokenizerInitializer();
-  const { submitWord, userInputWord } = useWordSubmissionForm(tokenizer);
 
   const [words, setWords] = useState([ //ルール説明に使う言葉
     { surface: "しりとり", reading: "シリトリ", player: "system" },
@@ -18,28 +21,10 @@ function App() {
     { surface: "溶岩", reading: "ヨウガン", player: "user" },
   ]);
 
+  const { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo } = useGameStateManager(words, setWords);
+  const { submitWord } = useWordSubmissionForm(tokenizer, setCurrentTurnInfo);
+  useRuleValidator(currentTurnInfo, setCurrentTurnInfo);
   const { renderGrid } = useShiritoriGrid(words);
-  const [ gameState, setGameState ] = useState('waiting') //waiting (開始前), inProgress (ゲーム中), finished (終了)
-
-  useEffect(() => {
-    if (userInputWord.reading ) {
-      setWords([...words, { surface: userInputWord.surface, reading: userInputWord.reading, player: 'user' }]);
-    }
-    // eslint-disable-next-line
-  }, [userInputWord]);
-
-
-  function handleGameStateChange() {
-    if ( gameState === 'waiting' ) {//ゲームを開始
-      setWords([{ surface: "しりとり", reading: "シリトリ", player: "system" }]);
-      setGameState('inProgress');
-    } else if ( gameState === 'inProgress') { //ゲームを終了
-      setGameState('finished');
-    } else if ( gameState === 'finished' ) { //最初に戻る
-      setGameState('waiting');
-    }
-  }
-
 
   const waitingPage = () => {
     return (<>
@@ -95,8 +80,13 @@ function App() {
       <div className='input-container'>
         <div className='card align-items-center input-card'>
           <div className='system-message'>
-            <p>{userInputWord.surface}<br/>
-            {userInputWord.reading}</p>
+            {currentTurnInfo ? <> {//ここを後でMessageManagerで実装する
+              }
+              <div>{currentTurnInfo.word}</div>
+              <div>{currentTurnInfo.nextStartWith}</div>
+              <div>{JSON.stringify(currentTurnInfo)}</div>
+            </>:<></>
+            }
           </div>
           <form onSubmit={submitWord}>
             <div className="input-group p-2">

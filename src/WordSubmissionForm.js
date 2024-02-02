@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export const useWordSubmissionForm = ( tokenizer ) => {
-    const [userInputWord, setUserInputWord] = useState({ surface: null, reading: null });
-
+export const useWordSubmissionForm = ( tokenizer, setCurrentTurnInfo ) => {
+  const [userInput, setUserInput] = useState({ text: null, reading: null, info: null });
+  
     function submitWord(event) {
+      // ユーザーテキスト入力を取得（form onSubmit）
       event.preventDefault();  // デフォルトのフォーム送信を阻止
 
       const formData = new FormData(event.target);
       const text = formData.get("text");
-      setUserInputWord({ surface: text, reading: null }); // 入力されたテキストをステートにセット
+      setUserInput({ text: text, reading: null });
 
       // 入力フィールドの値をクリアする
       const inputField = document.querySelector("input[name='text']");
@@ -16,33 +17,46 @@ export const useWordSubmissionForm = ( tokenizer ) => {
     }
   
     useEffect(() => {
+      // 形態素解析で読みを取得
       if (!tokenizer) {
         console.error("トークナイザが利用できません");
         return
       }
-      if ( !userInputWord.surface || userInputWord.reading ) { return }
-      const tokens = tokenizer.tokenize(userInputWord.surface);
+      if ( !userInput.text ) { return }
+      else if ( !userInput.reading ) {
+      // reading がまだないとき
+      const tokens = tokenizer.tokenize(userInput.text);
       let reading = "";
-      tokens.forEach(token => {
+      let validationInfo = null; //読み・形態素のチェック結果
+
+      for (const token of tokens) {
         if (token.reading === undefined) {
-          console.log(token.surface_form, "の読みがわかりません");
+          validationInfo = `読みがわからない（${token.surface_form}）`;
           reading = "？";
+          break;
+        } else if (token.pos !== '名詞') {
+          validationInfo = `名詞以外（${token.surface_form}: ${token.pos}）`;
+          reading = "？";
+          break;
         } else {
-          console.log(token.surface_form, token.pos);
           reading += token.reading;
         };
+      };
+      setUserInput(prevState => { return {...prevState, reading: reading, info: validationInfo} });
+    } else {
+      setCurrentTurnInfo(prevState => {
+        return {
+          ...prevState,
+          word: userInput.text,
+          wordReading: userInput.reading,
+          validationInfo: userInput.info,
+          validationResult: null,
+          player: 'user',
+        };
       });
-      setUserInputWord({ surface: userInputWord.surface, reading: reading, player: 'user' });
+    }
       // eslint-disable-next-line
-    }, [userInputWord]);
+    }, [userInput]);
 
-    useEffect(() => {
-      if ( !userInputWord.surface || !userInputWord.reading ) { return }
-      console.log(userInputWord);
-      var lastChar = userInputWord.reading.slice( -1 ) ;
-      console.log('the last char is', lastChar);
-
-    }, [userInputWord]);
-
-    return { submitWord, userInputWord };
+    return { submitWord };
 };
