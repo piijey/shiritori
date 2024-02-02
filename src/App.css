@@ -1,81 +1,90 @@
 body {
-  background-color: #283431; /* `.App` と同じ背景色に設定 */
-}
-
-.title {
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 0px;
-  color:white;
-  background-color: #3c4643;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /*左右*/
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 20px;
-  background-color: #283431;
-  width: 100%;
-}
-
-.card {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  width: 40rem;
-  background-color:white;
-  color: #283431;
-}
-
-.container {
-  align-items: left; /*左右*/
-  width: 40rem;
-  background-color:white;
-  color: #283431;
-  padding: 10px;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  background-color: #282d34;
 }
 
 p {
   margin-bottom: 0;
 }
 
-td {
+.title {
+  text-align: center;
+  padding: 10px 0px 10px 0;
+  margin-bottom: 0px;
+  color:white;
+  background-color: #454f5b;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+}
+
+.App {
+  flex-direction: column;
+  align-items: center; /*左右*/
+  text-align: center;
+  padding: 70px 0 0 0;
+  margin: 0;
+  width: 100%;
+  max-height: 100vh - 70px;
+}
+
+.instruction {
+  color: white;
+  text-align: left;
+  font-size: small;
+  margin: 0 30px 0 30px;
+}
+
+.input-container {
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background-color: #454f5b;
+  width: 100%;
+}
+
+.input-card {
+  text-align: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: #fff;
+}
+
+.system-message {
+  padding: 10px;
+}
+
+.grid-container {
+  margin: 0 30px 0 30px;
+  padding: 5px;
+  align-items: left; /*左右*/
+  background-color: #454f5b;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  width: 90vw;
+  max-height: 60vh;
+}
+
+.shiritorigrid {
   text-align: center; /* テキストを中央に配置 */
 }
 
 .usersurface {
-  color: gray;
+  color: #535353;
   background-color: #f3fafa; /* 薄い青色の背景 */
 }
 
 .userreading {
+  color: black;
   background-color: #caf1f1; /* 薄い青色の背景 */
 }
 
 .systemsurface {
-  color: gray;
+  color: #535353;
   background-color: #faf2ea; /* 薄い橙色の背景 */
 }
 
 .systemreading {
+  color: black;
   background-color: #fee5c8; /* 薄い橙色の背景 */
-}
-
-.inputpanel {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /*左右*/
-  text-align: center;
-  background-color: #3c4643;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
 }

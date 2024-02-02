@@ -3,19 +3,16 @@ import { useState, useEffect } from 'react';
 export const useWordSubmissionForm = ( tokenizer ) => {
     const [userInputWord, setUserInputWord] = useState({ surface: null, reading: null });
 
-    const [words, setWords] = useState([
-        { surface: "しりとり", reading: "シリトリ", player: "system" },
-        { surface: "りんご", reading: "リンゴ", player: "user" },
-        { surface: "豪雨", reading: "ゴウウ", player: "system" },
-        { surface: "海", reading: "ウミ", player: "user" },
-        { surface: "ミンミンゼミ", reading: "ミンミンゼミ", player: "system" }
-      ]);
-
     function submitWord(event) {
       event.preventDefault();  // デフォルトのフォーム送信を阻止
+
       const formData = new FormData(event.target);
       const text = formData.get("text");
       setUserInputWord({ surface: text, reading: null }); // 入力されたテキストをステートにセット
+
+      // 入力フィールドの値をクリアする
+      const inputField = document.querySelector("input[name='text']");
+      inputField.value = "";
     }
   
     useEffect(() => {
@@ -36,9 +33,16 @@ export const useWordSubmissionForm = ( tokenizer ) => {
         };
       });
       setUserInputWord({ surface: userInputWord.surface, reading: reading, player: 'user' });
-      setWords([...words, { surface: userInputWord.surface, reading: reading, player: 'user' }]);
       // eslint-disable-next-line
     }, [userInputWord]);
 
-    return { submitWord, userInputWord, words };
+    useEffect(() => {
+      if ( !userInputWord.surface || !userInputWord.reading ) { return }
+      console.log(userInputWord);
+      var lastChar = userInputWord.reading.slice( -1 ) ;
+      console.log('the last char is', lastChar);
+
+    }, [userInputWord]);
+
+    return { submitWord, userInputWord };
 };

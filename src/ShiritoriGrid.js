@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useShiritoriGrid = ( words ) => {
+export const useShiritoriGrid = (words) => {
     const [grid, setGrid] = useState([]);
 
     useEffect(() => {
