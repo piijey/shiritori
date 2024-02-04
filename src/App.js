@@ -5,6 +5,7 @@ import { useTokenizerInitializer } from './TokenizerInitializer';
 import { useWordSubmissionForm } from './WordSubmissionForm';
 import { useGameStateManager } from './GameStateManager';
 import { useRuleValidator } from './RuleValidator';
+import { useSystemWordSelector } from './SystemWordSelector';
 import { useShiritoriGrid } from './ShiritoriGrid';
 
 import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
@@ -43,6 +44,7 @@ function App() {
   const { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo } = useGameStateManager(words, setWords, wordsExample);
   const { submitWord } = useWordSubmissionForm(tokenizer, setCurrentTurnInfo);
   useRuleValidator(currentTurnInfo, setCurrentTurnInfo, words);
+  useSystemWordSelector( gameState, currentTurnInfo, setCurrentTurnInfo);
   const { renderGrid } = useShiritoriGrid(words);
 
   const waitingPage = () => {

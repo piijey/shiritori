@@ -8,7 +8,6 @@ export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo, words ) =
         if ( !currentTurnInfo || currentTurnInfo.validationResult !== null ) { return }
         else if ( currentTurnInfo.validationInfo ) {
             // 形態素解析でNGだった場合
-            console.log(currentTurnInfo.validationInfo)
             setCurrentTurnInfo(prevState => {
                 return {
                   ...prevState,
@@ -21,26 +20,10 @@ export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo, words ) =
         let validationInfo = null;
         const reading = currentTurnInfo.wordReading;
 
-        // 言葉がこのゲームですでに使用されたか
-        const foundItem = words.find(item => item.surface === currentTurnInfo.word);
-        if (foundItem) {
-          validationInfo = `「${foundItem.surface}」は使用済み`
-          console.log(validationInfo)
-          setCurrentTurnInfo(prevState => {
-              return {
-                ...prevState,
-                validationInfo: validationInfo,
-                validationResult: false,
-              };
-            });
-          return
-        };
-
         //前の単語の最後の文字から始まっているか
         const firstChar = reading.slice( 0, 1 ) ;
         if ( currentTurnInfo.nextStartWith !== firstChar ){
-            validationInfo = `${reading} は「${currentTurnInfo.nextStartWith}」から始まらない`
-            console.log(validationInfo)
+            validationInfo = `${reading} は「${currentTurnInfo.nextStartWith}」から始まらない`;
             setCurrentTurnInfo(prevState => {
                 return {
                   ...prevState,
@@ -51,10 +34,25 @@ export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo, words ) =
             return
         }
 
+
+        // 言葉がこのゲームですでに使用されたか
+        const foundItem = words.find(item => item.surface === currentTurnInfo.word);
+        if (foundItem) {
+          validationInfo = `「${foundItem.surface}」は使用済み`;
+          setCurrentTurnInfo(prevState => {
+              return {
+                ...prevState,
+                validationInfo: validationInfo,
+                validationResult: false,
+              };
+            });
+          return
+        };
+
+
         let lastChar = currentTurnInfo.wordReading.slice( -1 ) ;
         if (lastChar === 'ン') {
-          validationInfo = `${reading} は「ン」で終わる`
-            console.log(validationInfo)
+          validationInfo = `${reading} は「ン」で終わる`;
             setCurrentTurnInfo(prevState => {
                 return {
                   ...prevState,
@@ -72,7 +70,6 @@ export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo, words ) =
           lastChar = charReplaceMap[lastChar];
         }
         
-        console.log('the last char is', lastChar);
         setCurrentTurnInfo(prevState => {
           return {
             ...prevState,
