@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 
-export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo ) => {
+export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo, words ) => {
+    const charReplaceMap = {'ャ': 'ヤ', 'ュ': 'ユ', 'ョ': 'ヨ'};
+
     useEffect(() => {
         // validation of currentTurnInfo
         if ( !currentTurnInfo || currentTurnInfo.validationResult !== null ) { return }
@@ -19,7 +21,20 @@ export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo ) => {
         let validationInfo = null;
         const reading = currentTurnInfo.wordReading;
 
-        //ここに言葉が未使用かのチェックをいれる
+        // 言葉がこのゲームですでに使用されたか
+        const foundItem = words.find(item => item.surface === currentTurnInfo.word);
+        if (foundItem) {
+          validationInfo = `「${foundItem.surface}」は使用済み`
+          console.log(validationInfo)
+          setCurrentTurnInfo(prevState => {
+              return {
+                ...prevState,
+                validationInfo: validationInfo,
+                validationResult: false,
+              };
+            });
+          return
+        };
 
         //前の単語の最後の文字から始まっているか
         const firstChar = reading.slice( 0, 1 ) ;
@@ -35,10 +50,29 @@ export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo ) => {
               });
             return
         }
-        const lastChar = currentTurnInfo.wordReading.slice( -1 ) ;
-        console.log('the last char is', lastChar);
 
-        //ここに拗音と長音、「ん」の処理を入れる
+        let lastChar = currentTurnInfo.wordReading.slice( -1 ) ;
+        if (lastChar === 'ン') {
+          validationInfo = `${reading} は「ン」で終わる`
+            console.log(validationInfo)
+            setCurrentTurnInfo(prevState => {
+                return {
+                  ...prevState,
+                  validationInfo: validationInfo,
+                  validationResult: false,
+                };
+              });
+            return
+        }
+        else if (lastChar === 'ー') {
+          lastChar = currentTurnInfo.wordReading.slice( -2, -1 );
+        }
+        //拗音の処理
+        if (charReplaceMap[lastChar]) {
+          lastChar = charReplaceMap[lastChar];
+        }
+        
+        console.log('the last char is', lastChar);
         setCurrentTurnInfo(prevState => {
           return {
             ...prevState,

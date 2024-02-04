@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 
-export const useGameStateManager = ( words, setWords ) => {
+export const useGameStateManager = ( words, setWords, wordsExample ) => {
     //ゲームの状態
     const [ gameState, setGameState ] = useState('waiting'); //waiting (開始前), inProgress (ゲーム中), finished (終了)
+
+    //現在のターンや最新の単語
+    const [ currentTurnInfo, setCurrentTurnInfo ] = useState(null);
 
     function handleGameStateChange() {
       if ( gameState === 'waiting' ) {//ゲームを開始
         setGameState('inProgress');
+        setWords([]);
       } else if ( gameState === 'inProgress') { //ゲームを終了
         setGameState('finished');
       } else if ( gameState === 'finished' ) { //最初に戻る
         setGameState('waiting');
+        setCurrentTurnInfo(null);
+        setWords(wordsExample);
       }
     };
     
-    //現在のターンや最新の単語を管理する
-    const [ currentTurnInfo, setCurrentTurnInfo ] = useState(null);
-
     useEffect(() => {
         // ルールに沿っていればグリッドに追加
         if ( currentTurnInfo && gameState === 'inProgress' && currentTurnInfo.validationResult === true ) {
