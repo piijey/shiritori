@@ -10,6 +10,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.2",
+    "csv-parser": "^3.0.0",
+    "iconv-lite": "^0.6.3",
     "kuromoji": "^0.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -20,6 +22,7 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
+    "build:dict": "node shiritori_dict/create_shiritori_dict.js && cp shiritori_dict/dict/nouns.json public/shiritori_dict/",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",

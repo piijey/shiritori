@@ -26,4 +26,5 @@ package-lock.json
 public/kuromoji-dict/*
 
 *~
-shiritori_note
+shiritori_dict/resource/*
+shiritori_dict/dict/*
