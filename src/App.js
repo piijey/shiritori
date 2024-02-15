@@ -24,7 +24,7 @@ WebFont.load({
 const Title = () => (
   <>
     <div className="title">
-      <h1>しりとりぼっと</h1>
+      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.0 かいはつばん -
     </div>
   </>
 );
