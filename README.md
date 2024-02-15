@@ -32,7 +32,7 @@ cp -r node_modules/kuromoji/dict public/kuromoji-dict
 ### しりとり辞書の仕様
 - 読みの最初の1文字をキーとして、単語の配列が格納されています
 - 各単語は、IPA辞書からの surface（表層形）、reading（読み）、cost（コスト）という3つのプロパティを持ちます
-```json
+```js
 {
   "ア": [
     {
