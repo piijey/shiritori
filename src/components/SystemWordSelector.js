@@ -31,7 +31,6 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
         if ( !systemWordStartWith ) { return };
         let selectedWord = systemWordStartWith; //仮
         let selectedWordReading = systemWordStartWith;  //仮
-        let nextStartWith = systemWordStartWith; //仮
 
         // 次の文字が設定されたら、システムの次の言葉を選択
         setTimeout(() => {
@@ -48,7 +47,7 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
             setSystemTurnInfo({
                 word: selectedWord,
                 wordReading: selectedWordReading,
-                nextStartWith: nextStartWith,
+                nextStartWith: systemWordStartWith,
                 validationResult: null,
                 validationInfo: null,
                 player: "system",

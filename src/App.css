@@ -59,6 +59,14 @@ ul {
   word-break: break-all; /*JSON string を折り返す*/
 }
 
+.iconMedium {
+  font-size: large;
+}
+
+.iconLarge {
+  font-size: x-large;
+}
+
 .debug-info {
   font-size: small;
 }
@@ -75,6 +83,7 @@ ul {
 
 .shiritorigrid {
   text-align: center; /* テキストを中央に配置 */
+  font-size: small;
 }
 
 .usersurface {

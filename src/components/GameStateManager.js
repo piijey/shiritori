@@ -23,7 +23,7 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
     useEffect(() => {
         // ルールに沿っていればグリッドに追加
         if ( currentTurnInfo && gameState === 'inProgress' && currentTurnInfo.validationResult === true ) {
-            console.log('add board:', currentTurnInfo);
+            console.log('add board currentTurnInfo:', currentTurnInfo);
             if ( words.length === 0 
                 || words.slice(-1)[0].surface !== currentTurnInfo.word) { //同じ言葉が続けて追加されるのを防ぐ
             setWords(prevWords => [...prevWords, {
@@ -37,12 +37,13 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
         //　ゲーム開始時
         else if ( !currentTurnInfo && gameState === 'inProgress' ) {
             const initialTurnInfo = {
-                word: "しりとり", // このターンで言われた言葉
-                wordReading: "シリトリ", // このターンで言われた言葉の読み
-                nextStartWith: "シ", // 前のターンの言葉の最後の文字
-                validationResult: null, // ルールに沿っているかの評価結果 // null (評価中), true (ルールに沿っている), false (沿っていない)
-                validationInfo: null, // 評価結果の詳細
-                player: "system", //プレイヤー // user (あなた), system (ボット)
+              // 各プロパティの役割は、documents/details.md を参照
+                word: "しりとり",
+                wordReading: "シリトリ",
+                nextStartWith: "シ",
+                validationResult: null,
+                validationInfo: null,
+                player: "system",
                 };
             setCurrentTurnInfo(initialTurnInfo);
             setWords([]);

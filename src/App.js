@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import WebFont from 'webfontloader';
 
-import { useTokenizerInitializer } from './TokenizerInitializer';
-import { useWordSubmissionForm } from './WordSubmissionForm';
-import { useGameStateManager } from './GameStateManager';
-import { useRuleValidator } from './RuleValidator';
-import { useSystemWordSelector } from './SystemWordSelector';
-import { useShiritoriGrid } from './ShiritoriGrid';
+import { useTokenizerInitializer } from './components/TokenizerInitializer';
+import { useWordSubmissionForm } from './components/WordSubmissionForm';
+import { useGameStateManager } from './components/GameStateManager';
+import { useRuleValidator } from './components/RuleValidator';
+import { useSystemWordSelector } from './components/SystemWordSelector';
+import { useShiritoriGrid } from './components/ShiritoriGrid';
+import { useMessageManager } from './components/MessageManager';
 
 import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
+import { BsGithub } from "react-icons/bs";
+
 import BarLoader from "react-spinners/BarLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -24,7 +27,7 @@ WebFont.load({
 const Title = () => (
   <>
     <div className="title">
-      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.0 かいはつばん -
+      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.0 かいはつばん - by PiiJey<a href="https://github.com/piijey/shiritori"><BsGithub/></a>
     </div>
   </>
 );
@@ -46,6 +49,7 @@ function App() {
   useRuleValidator(currentTurnInfo, setCurrentTurnInfo, words);
   useSystemWordSelector( gameState, currentTurnInfo, setCurrentTurnInfo);
   const { renderGrid } = useShiritoriGrid(words);
+  const { message } = useMessageManager(currentTurnInfo, RiUser5Line, RiRobot2Line);
 
   const waitingPage = () => {
     return (<>
@@ -53,7 +57,7 @@ function App() {
         <div className='instruction'>
           <h3>ルール</h3>
           <ul>
-            <li>プレイヤー（<RiRobot2Line/>ボットと<RiUser5Line/>あなた）が交互に言葉（名詞）を言うよ</li>
+            <li>プレイヤー（<RiRobot2Line className='iconMedium' aria-label="ボット"/> ボットと <RiUser5Line className='iconMedium' aria-label="ユーザー"/> あなた）が交互に言葉（名詞）を言うよ</li>
             <li>次のプレイヤーは、前のプレイヤーが言った言葉の最後の文字から始まる言葉を言うよ</li>
             <li>「ン」で終わる言葉を言ったら負けだよ</li>
           </ul>
@@ -69,7 +73,7 @@ function App() {
           <ul>
             <li>最後の文字が小さい文字のときは大きい文字（「ョ」→「ヨ」）、伸ばす文字のときは前の文字（「プレイヤー」→「ヤ」）を使うよ</li>
             <li>同じ言葉は1回しか使えないよ</li>
-            <li><RiUser5Line/>あなたが言った言葉を<RiRobot2Line/>ボットが知らなかったら、ほかの言葉を言ってね</li>
+            <li><RiUser5Line className='iconMedium' aria-label="ユーザー"/> あなたが言った言葉を <RiRobot2Line className='iconMedium' aria-label="ボット"/> ボットが知らなかったら、ほかの言葉を言ってね</li>
             <li>しりとりを楽しもう！</li>
           </ul>
         </div>
@@ -116,13 +120,7 @@ function App() {
       <div className='input-container'>
         <div className='card align-items-center input-card'>
           <div className='system-message'>
-            {currentTurnInfo ? <> {//ここを後でMessageManagerで実装する
-              }
-              <div>{currentTurnInfo.word}</div>
-              <div>{currentTurnInfo.nextStartWith}</div>
-              <div className='debug-info'>{JSON.stringify(currentTurnInfo)}</div>
-            </>:<></>
-            }
+            { message }
           </div>
           <form onSubmit={submitWord}>
             <div className="input-group p-2">
