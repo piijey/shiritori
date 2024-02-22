@@ -6,11 +6,13 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
 
     //現在のターンや最新の単語
     const [ currentTurnInfo, setCurrentTurnInfo ] = useState(null);
+    const [ winner, setWinner ] = useState(null);
 
     function handleGameStateChange() {
       if ( gameState === 'waiting' ) {//ゲームを開始
         setGameState('inProgress');
         setWords([]);
+        setWinner(null);
       } else if ( gameState === 'inProgress') { //ゲームを終了
         setGameState('finished');
       } else if ( gameState === 'finished' ) { //最初に戻る
@@ -50,6 +52,13 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
         }
         // eslint-disable-next-line
     }, [gameState, currentTurnInfo]);
-    
-    return { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo };
+
+    useEffect(() => {
+      // 勝者が決まったらゲーム終了
+      if (winner) {
+        setGameState('finished');
+      }
+    }, [winner]);
+
+    return { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo, winner, setWinner };
 };

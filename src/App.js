@@ -9,8 +9,9 @@ import { useSystemWordSelector } from './components/SystemWordSelector';
 import { useShiritoriGrid } from './components/ShiritoriGrid';
 import { useMessageManager } from './components/MessageManager';
 
-import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
+import { RiUser5Line, RiRobot2Line, RiShiningLine } from "react-icons/ri";
 import { BsGithub } from "react-icons/bs";
+import { GiDiamondTrophy } from "react-icons/gi";
 
 import BarLoader from "react-spinners/BarLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,7 +28,7 @@ WebFont.load({
 const Title = () => (
   <>
     <div className="title">
-      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.0 かいはつばん - by PiiJey<a href="https://github.com/piijey/shiritori"><BsGithub/></a>
+      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.1 かいはつばん - by PiiJey<a href="https://github.com/piijey/shiritori"><BsGithub/></a>
     </div>
   </>
 );
@@ -44,12 +45,12 @@ function App() {
   ];
   const [words, setWords] = useState(wordsExample);
 
-  const { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo } = useGameStateManager(words, setWords, wordsExample);
-  const { submitWord } = useWordSubmissionForm(tokenizer, setCurrentTurnInfo);
+  const { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo, winner, setWinner } = useGameStateManager(words, setWords, wordsExample);
+  const { wordSubmissionForm } = useWordSubmissionForm( currentTurnInfo, tokenizer, setCurrentTurnInfo, setWinner );
   useRuleValidator(currentTurnInfo, setCurrentTurnInfo, words);
   useSystemWordSelector( gameState, currentTurnInfo, setCurrentTurnInfo);
   const { renderGrid } = useShiritoriGrid(words);
-  const { message } = useMessageManager(currentTurnInfo, RiUser5Line, RiRobot2Line);
+  const { message } = useMessageManager( currentTurnInfo );
 
   const waitingPage = () => {
     return (<>
@@ -122,12 +123,7 @@ function App() {
           <div className='system-message'>
             { message }
           </div>
-          <form onSubmit={submitWord}>
-            <div className="input-group p-2">
-              <input name='text' type="text" className="form-control" placeholder="次の言葉を入力してね" aria-label="次の言葉を入力"/>
-              <button className="btn btn-primary" type="submit">言う</button>
-            </div>
-          </form>
+          { wordSubmissionForm }
           <button className="btn btn-secondary btn-sm" type="button" onClick={handleGameStateChange}>しりとりをやめる</button>
         </div>
       </div>
@@ -148,9 +144,22 @@ function App() {
     <div className='input-container'>
       <div className='card align-items-center input-card'>
         <div className='system-message'>
-          おしまい
+          { winner === 'user' ? <>
+              <p>あなたの勝ち <RiUser5Line className='iconLarge' aria-label="ユーザー"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
+              <p>おめでとう！</p>
+            </> : <>
+            { winner === 'system' ? <>
+              <p>ボットの勝ち <RiRobot2Line className='iconLarge' aria-label="ボット"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
+              <p>やったあ！</p>
+            </> : <>
+              <p>しりとりはおしまい <RiUser5Line className='iconLarge' aria-label="ユーザー"/><RiRobot2Line className='iconLarge' aria-label="ボット"/></p>
+            </> }
+          </> }
         </div>
-        <button className="btn btn-primary" type="button" onClick={handleGameStateChange}>はじめに戻る</button>
+        <div>
+          <p>また遊んでね</p>
+          <button className="btn btn-primary" type="button" onClick={handleGameStateChange}>はじめに戻る</button>
+        </div>
       </div>
     </div>
   </>)

@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 
 export const useRuleValidator = ( currentTurnInfo, setCurrentTurnInfo, words ) => {
-    const charReplaceMap = {'ャ': 'ヤ', 'ュ': 'ユ', 'ョ': 'ヨ'};
+    const charReplaceMap = {
+      'ャ': 'ヤ', 'ュ': 'ユ', 'ョ': 'ヨ',
+      'ァ': 'ア', 'ィ': 'イ', 'ゥ': 'ウ', 'ェ': 'エ', 'ォ': 'オ'
+    };
 
     useEffect(() => {
         // validation of currentTurnInfo
