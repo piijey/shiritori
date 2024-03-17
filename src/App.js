@@ -28,7 +28,7 @@ WebFont.load({
 const Title = () => (
   <>
     <div className="title">
-      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.1 かいはつばん - by PiiJey<a href="https://github.com/piijey/shiritori"><BsGithub/></a>
+      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.1.1 かいはつばん - by PiiJey<a href="https://github.com/piijey/shiritori"><BsGithub/></a>
     </div>
   </>
 );

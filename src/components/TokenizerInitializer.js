@@ -9,6 +9,10 @@ export const useTokenizerInitializer = () => {
     const [tokenizer, setTokenizer] = useState(null);
 
     useEffect(() => { //アプリのマウント時にkuromojiトークナイザを初期化
+        if ( !loading ) {
+            console.log("attempt to reload tokenizer?");
+            return
+        };
         function initializeTokenizer() {
         return new Promise((resolve, reject) => {
             kuromoji.builder(
@@ -27,7 +31,7 @@ export const useTokenizerInitializer = () => {
         try {
             const tokenizer = await initializeTokenizer();
             setTokenizer(tokenizer);
-            console.error("トークナイザを初期化しました");
+            console.log("トークナイザを初期化しました");
         } catch (err) {
             console.error("トークナイザの初期化に失敗しました", err);
         } finally {

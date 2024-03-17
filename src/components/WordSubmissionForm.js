@@ -7,7 +7,7 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
   function handleSubmit(event) {
     event.preventDefault(); // フォームのデフォルトの送信を防止
     const submitter = event.nativeEvent.submitter; // 押されたボタンを識別
-    if ( submitter.name === 'resubmit' ) {
+    if ( submitter.name === 'submit' ) {
       submitWord(event);
     } else if ( submitter.name === 'resubmit' ) {
       submitWord(event);
@@ -52,6 +52,7 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
       };
       setUserInput(prevState => { return {...prevState, reading: reading, info: validationInfo} });
     } else {
+      // 形態素解析したあと
       setCurrentTurnInfo(prevState => {
         return {
           ...prevState,
@@ -62,6 +63,7 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
           player: 'user',
         };
       });
+      setUserInput({ text: null, reading: null, info: null });      
     };
     // eslint-disable-next-line
   }, [userInput]);
@@ -106,7 +108,7 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
         <form onSubmit={handleSubmit}>
           <div className="input-group p-2">
             <input name='text' type="text" className="form-control" placeholder="次の言葉を入力してね" aria-label="次の言葉を入力"/>
-            <button className="btn btn-primary" type="submit" name="resubmit">言う</button>
+            <button className="btn btn-primary" type="submit" name="submit">言う</button>
           </div>
         </form>
       </>);
