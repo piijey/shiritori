@@ -51,13 +51,17 @@ npm start
 
 技術的な詳細については [`documents/`](./documents/) の以下のページをご参照ください。
 
-- [しりとり辞書](./documents/shiritori_dict.md)
-- [技術詳細](./documents/details.md)
+- [しりとり辞書](./documents/shiritori_dict.md)：ぼっとのターンで単語を選択するための辞書
+- [技術詳細](./documents/details.md)：アプリの各ページ、React の状態管理を使用したゲームの流れ
 
 
 ## お礼
-アプリを作るにあたり、X/Twitter のフォロワーをはじめとするみなさんに遊んでいただき、感謝しています。温かい励ましや、自分だけでは気づかないいろいろなことについて、有益なコメントをいただいています。
+読みの取得と単語選択には、[kuromoji.js](https://github.com/takuyaa/kuromoji.js) と [IPA辞書](https://taku910.github.io/mecab/#download) を利用しています。
+
+タイトルのフォントは、Google Font から ["Monomaniac One" (Designed by Maniackers Design)](https://fonts.google.com/specimen/Monomaniac+One) を利用しています。
 
 アプリの [favicon](./public/favicon.ico) は、ChatGPT + DALL·E で生成しました。
 
-ご質問やご感想は [X/Twitter @xiPJ](https://twitter.com/xiPJ) へ、お気軽にどうぞ。
+アプリを作るにあたり、X/Twitter のフォロワーをはじめとするみなさんに遊んでいただき、感謝しています。温かい励ましや、自分だけでは気づかないいろいろなことについて、有益なコメントをいただいています。
+
+ご質問やご感想は [X/Twitter @xiPJ](https://twitter.com/xiPJ) や [Bluesky @xipj.bsky.social](https://bsky.app/profile/xipj.bsky.social) へ、お気軽にどうぞ。

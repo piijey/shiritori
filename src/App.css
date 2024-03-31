@@ -3,8 +3,25 @@ body {
   color: white;
 }
 
+h1, h2, h3, h4 {
+  font-size: larger;
+  font-family: 'Monomaniac One', sans-serif;
+  white-space: nowrap;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+
 h1 {
   font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 25px;
 }
 
 p {
@@ -20,43 +37,50 @@ ul {
   flex-direction: column;
   align-items: center; /*左右*/
   width: 100vw;
-  height: 100vh;
 }
 
-.title {
-  font-family: 'Monomaniac One', sans-serif;
-  text-align: center;
-  margin: 0 0 10px 0;
-  padding: 0;
-  background-color: #454f5b;
+.header-container {
   top: 0;
+  position: sticky;
+  position: -webkit-sticky; /* Safari */
+  background-color: transparent;
+  padding: 0 0 5px 0;
   width: 100%;
+  background-color: #454f5b;
+  text-align: center;
 }
 
 .instruction {
   text-align: left;
   font-size: small;
   margin: 5px;
+  padding: 5px;
+}
+
+.modal-rules {
+  background-color: #7f8a96;
 }
 
 .input-container {
   position: fixed;
   bottom: 0;
-  padding: 10px;
-  background-color: #454f5b;
+  background-color: transparent;
   width: 100%;
 }
 
 .input-card {
   text-align: center;
-  background-color: transparent;
-  border-color: transparent;
+  padding: 3px 0 10px 0;
+  background-color: #454f5b;
+  border-color: #282d34;
+  border-radius: 0;
+  border-width: 5px 0 0 0;
   color: #fff;
 }
 
 .system-message {
-  padding: 10px;
   word-break: break-all; /*JSON string を折り返す*/
+  margin-bottom: 3px;
 }
 
 .iconMedium {
@@ -67,6 +91,14 @@ ul {
   font-size: x-large;
 }
 
+.message-user {
+  color: #caf1f1;
+}
+
+.message-system {
+  color: #fee5c8;
+}
+
 .debug-info {
   font-size: small;
 }
@@ -75,10 +107,29 @@ ul {
   padding: 5px;
   align-items: left; /*左右*/
   background-color: #454f5b;
+  margin: 5px 0 70px 0;
+}
+
+.grid-scroller {
   overflow-x: scroll;
   overflow-y: scroll;
-  max-height: 60vh;
+  max-height: 65vh;
   min-width: 80vw;
+  scrollbar-color: #3c424a #76818d; /* #thumb #track */
+}
+
+/* safari */
+::-webkit-scrollbar {
+  width: auto;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3c424a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #76818d;
 }
 
 .shiritorigrid {
@@ -93,7 +144,7 @@ ul {
 
 .userreading {
   color: black;
-  background-color: #caf1f1; /* 薄い青色の背景 */
+  background-color: #caf1f1; /* 青色の背景 */
 }
 
 .systemsurface {
@@ -103,5 +154,5 @@ ul {
 
 .systemreading {
   color: black;
-  background-color: #fee5c8; /* 薄い橙色の背景 */
+  background-color: #fee5c8; /* 橙色の背景 */
 }

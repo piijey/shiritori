@@ -18,8 +18,8 @@ export const useShiritoriGrid = (words) => {
           if (!word) { return }
           let row = new Array(offset).fill({ character: null, class: null });
           for (let i = 0; i < word.length; i++) {
-            const cellClass = `${wordObj.player}${key}`
-            row.push({ character: word[i], class: cellClass})
+            const cellClass = `${wordObj.player}${key}`;
+            row.push({ character: word[i], class: cellClass});
           }
           newGrid.push(row);
           if (key === 'reading'){
@@ -32,9 +32,11 @@ export const useShiritoriGrid = (words) => {
   
     const renderGrid = () => {
       return grid.map((row, rowIndex) => (
-        <tr key={rowIndex}>
+        <tr key={`r-${rowIndex}`}>
           {row.map((cell, cellIndex) => (
-            <td key={cellIndex} className={cell.class}>{cell.character || ''}</td>
+            <td key={`c-${rowIndex}-${cellIndex}`} className={cell.class}>
+              {cell.character || ''}
+            </td>
           ))}
         </tr>
       ));

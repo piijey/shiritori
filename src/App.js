@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import WebFont from 'webfontloader';
 
+import { useHeader } from  './components/Header.js';
 import { useTokenizerInitializer } from './components/TokenizerInitializer';
 import { useWordSubmissionForm } from './components/WordSubmissionForm';
 import { useGameStateManager } from './components/GameStateManager';
@@ -10,7 +11,6 @@ import { useShiritoriGrid } from './components/ShiritoriGrid';
 import { useMessageManager } from './components/MessageManager';
 
 import { RiUser5Line, RiRobot2Line, RiShiningLine } from "react-icons/ri";
-import { BsGithub } from "react-icons/bs";
 import { GiDiamondTrophy } from "react-icons/gi";
 
 import BarLoader from "react-spinners/BarLoader";
@@ -24,26 +24,10 @@ WebFont.load({
   }
 });
 
-
-const Title = () => (
-  <>
-    <div className="title">
-      <h1 style={{display:"inline"}}>しりとりぼっと</h1> - v0.1.1 かいはつばん - by PiiJey<a href="https://github.com/piijey/shiritori"><BsGithub/></a>
-    </div>
-  </>
-);
-
-
 function App() {
+  const { Header, Rules, wordsExample } = useHeader("v0.1.2 かいはつばん");
   const { loading, tokenizer } = useTokenizerInitializer();
-
-  const wordsExample = [ //ルール説明に使う言葉
-    { surface: "しりとり", reading: "シリトリ", player: "system" },
-    { surface: "履歴書", reading: "リレキショ", player: "user" },
-    { surface: "ヨーヨー", reading: "ヨーヨー", player: "system" },
-    { surface: "溶岩", reading: "ヨウガン", player: "user" },
-  ];
-  const [words, setWords] = useState(wordsExample);
+  const [ words, setWords ] = useState(wordsExample);
 
   const { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo, winner, setWinner } = useGameStateManager(words, setWords, wordsExample);
   const { wordSubmissionForm } = useWordSubmissionForm( currentTurnInfo, tokenizer, setCurrentTurnInfo, setWinner );
@@ -56,27 +40,16 @@ function App() {
     return (<>
       <div className='container p-0'>
         <div className='instruction'>
-          <h3>ルール</h3>
-          <ul>
-            <li>プレイヤー（<RiRobot2Line className='iconMedium' aria-label="ボット"/> ボットと <RiUser5Line className='iconMedium' aria-label="ユーザー"/> あなた）が交互に言葉（名詞）を言うよ</li>
-            <li>次のプレイヤーは、前のプレイヤーが言った言葉の最後の文字から始まる言葉を言うよ</li>
-            <li>「ン」で終わる言葉を言ったら負けだよ</li>
-          </ul>
-        </div>
-        <div className='grid-container'>
-          <div className='shiritorigrid'>
-            <table>
-                <tbody>{renderGrid()}</tbody>
-            </table>
+          <h2>ルール</h2>
+          <Rules />
+          <h2>れい</h2>
+          <div className='grid-container'>
+            <div className='shiritorigrid'>
+              <table>
+                  <tbody>{renderGrid()}</tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div className='instruction'>
-          <ul>
-            <li>最後の文字が小さい文字のときは大きい文字（「ョ」→「ヨ」）、伸ばす文字のときは前の文字（「プレイヤー」→「ヤ」）を使うよ</li>
-            <li>同じ言葉は1回しか使えないよ</li>
-            <li><RiUser5Line className='iconMedium' aria-label="ユーザー"/> あなたが言った言葉を <RiRobot2Line className='iconMedium' aria-label="ボット"/> ボットが知らなかったら、ほかの言葉を言ってね</li>
-            <li>しりとりを楽しもう！</li>
-          </ul>
         </div>
       </div>
       <div className='input-container'>
@@ -88,8 +61,12 @@ function App() {
             </div>
             <button className="btn btn-outline-primary" disabled aria-label="辞書の読み込みが完了したらボタンが有効になります">はじめる</button>
           </>
-          :
+          : <>
+            <div className='system-message'>
+              準備ができたよ
+            </div>
             <button className="btn btn-primary" onClick={handleGameStateChange}>はじめる</button>
+          </>
           }
         </div>
       </div>
@@ -110,7 +87,7 @@ function App() {
   const progressPage = () => {
     return (<>
       <div className='container p-0'>
-        <div className='grid-container' ref={scrollContainerRef}>
+        <div className='grid-container grid-scroller' ref={scrollContainerRef}>
           <div className='shiritorigrid'>
             <table>
                 <tbody>{renderGrid()}</tbody>
@@ -133,8 +110,8 @@ function App() {
   const finishedPage = () => {
     return (<>
     <div className='container p-0'>
-      <div className='grid-container'>
-        <div className='shiritorigrid' ref={scrollContainerRef}>
+      <div className='grid-container grid-scroller'>
+        <div className='shiritorigrid'>
           <table>
               <tbody>{renderGrid()}</tbody>
           </table>
@@ -149,7 +126,7 @@ function App() {
               <p>おめでとう！</p>
             </> : <>
             { winner === 'system' ? <>
-              <p>ボットの勝ち <RiRobot2Line className='iconLarge' aria-label="ボット"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
+              <p>ぼっとの勝ち <RiRobot2Line className='iconLarge' aria-label="ボット"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
               <p>やったあ！</p>
             </> : <>
               <p>しりとりはおしまい <RiUser5Line className='iconLarge' aria-label="ユーザー"/><RiRobot2Line className='iconLarge' aria-label="ボット"/></p>
@@ -167,7 +144,7 @@ function App() {
 
   return (<>
     <div className='app'>
-      <Title />
+      <Header />
       { gameState === 'inProgress' ? <>
           {progressPage()}
       </> : <>

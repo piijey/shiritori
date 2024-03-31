@@ -39,7 +39,7 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
 
       for (const token of tokens) {
         if (token.reading === undefined) {
-          validationInfo = `読みがわからない`;
+          validationInfo = `ぼっとの知らない言葉`;
           reading = "？";
           break;
         } else if (token.pos !== '名詞') {

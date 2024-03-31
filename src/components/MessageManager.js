@@ -5,49 +5,56 @@ export const useMessageManager = ( currentTurnInfo ) => {
     const [ prevTurnWord, setPrevTurnWord ] = useState(null);
     const [ message, setMessage ] = useState(null);
 
+    const renderTurnWord = (info) => {
+        const Icon = currentTurnInfo.player === 'user' ? RiUser5Line : RiRobot2Line;
+        const player = currentTurnInfo.player === 'user' ? 'ユーザー' : 'ボット';
+        const messageClassName = `message-${currentTurnInfo.player}`;
+        if ( info.word ) {
+            return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> {currentTurnInfo.word}（{currentTurnInfo.wordReading}）</div>);
+        } else {
+            return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> 情けをかける </div>);
+        };
+    };
+
+    const updateMessage = (info, turnWord) => {
+        let messageContent = (<>
+            <div>{prevTurnWord}</div>
+            <div>{turnWord}</div>
+        </>);
+
+        if ( info.validationResult ) {
+            messageContent = (<>
+                {messageContent}
+                <div>次は、「<b>{info.nextStartWith}</b>」から始まる言葉を選んでね</div>
+            </>)
+        } else {
+            if ( info.player === 'user' ) {
+                messageContent = (<>
+                    {messageContent}
+                    <div className='debug-info'>{info.validationInfo}みたいだね</div>
+                    <div>ほかの「<b>{info.nextStartWith}</b>」から始まる言葉を選ぶ？</div>
+                </>)
+            } else {
+                messageContent = (<>
+                    {messageContent}
+                    <div className='debug-info'>{info.validationInfo}みたいだね</div>
+                    <div>どうしよう！</div>
+                </>)
+            };
+        };
+        setMessage(messageContent);
+        setPrevTurnWord(turnWord);
+    };
+
     useEffect(() => {
         if ( !currentTurnInfo ) { //ゲーム開始時
             setPrevTurnWord(null);
             setMessage(null);
             return
-        }
-
-        if (currentTurnInfo.validationResult === true || currentTurnInfo.validationResult === false){
-
-        const Icon = currentTurnInfo.player === 'user' ? RiUser5Line : RiRobot2Line;
-        const player = currentTurnInfo.player === 'user' ? 'ユーザー' : 'ボット';
-        let currentTurnWord = null
-        if ( currentTurnInfo.word ) {
-            currentTurnWord = (<><Icon className="iconLarge" aria-label={player} /> {currentTurnInfo.word}（{currentTurnInfo.wordReading}）</>);
-        } else {
-            currentTurnWord = (<><Icon className="iconLarge" aria-label={player} /> がんばって </>);
-        }
-
-        if ( currentTurnInfo.validationResult === true ) {
-            setMessage(<>
-                <div>{prevTurnWord}</div>
-                <div>{currentTurnWord}</div>
-                <div>次は、「{currentTurnInfo.nextStartWith}」から始まる言葉を選んでね</div>
-            </>)
-        } else if (currentTurnInfo.validationResult === false) {
-            if ( currentTurnInfo.player === 'user' ) {
-                setMessage(<>
-                    <div>{prevTurnWord}</div>
-                    <div>{currentTurnWord}</div>
-                    <div className='debug-info'>{currentTurnInfo.validationInfo}みたいだね</div>
-                    <div>ほかの「{currentTurnInfo.nextStartWith}」から始まる言葉を選ぶ？</div>
-                </>)
-            } else {
-                setMessage(<>
-                    <div>{prevTurnWord}</div>
-                    <div>{currentTurnWord}</div>
-                    <div className='debug-info'>{currentTurnInfo.validationInfo}みたいだね</div>
-                    <div>どうしよう！</div>
-                </>)
-            };
+        } else if (currentTurnInfo.validationResult === true || currentTurnInfo.validationResult === false){
+            const currentTurnWord = renderTurnWord(currentTurnInfo);
+            updateMessage(currentTurnInfo, currentTurnWord);
         };
-        setPrevTurnWord(currentTurnWord);
-    };
     // eslint-disable-next-line
     }, [currentTurnInfo]);
 
