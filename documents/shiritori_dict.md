@@ -1,5 +1,5 @@
 # しりとり辞書
-ボットのターンで出す単語は、しりとり辞書 [`public/shiritori_dict/nouns.json`](../public/shiritori_dict/nouns.json) から選択します（このファイルはリポジトリに含まれているので、追加の作業は必要ないですが、興味のある方はカスタマイズなどの参考にしてみてください）。
+ぼっとのターンでは、単語をしりとり辞書 [`public/shiritori_dict/nouns.json`](../public/shiritori_dict/nouns.json) から選択します（このファイルはリポジトリに含まれているので、追加の作業は必要ないですが、興味のある方はカスタマイズなどの参考にしてみてください）。
 
 しりとり辞書は、IPA辞書(`mecab-ipadic-2.7.0-20070801`) に収録されている 一般名詞 (`Noun.csv`)、副詞可能名詞(`Noun.adverbal.csv`)、サ変接続名詞(`Noun.verbal.csv`) を元に作成しました。73,418 語が含まれています。
 
