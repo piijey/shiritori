@@ -113,13 +113,17 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
         </form>
       </>);
     } else if ( currentTurnInfo.validationResult === false ) {
+      console.log(currentTurnInfo);
       if ( currentTurnInfo.player === 'user' ) {
         setWordSubmissionForm(<>
           <form onSubmit={handleSubmit}>
             <div className="input-group p-2">
               <input name='text' type="text" className="form-control" placeholder="ほかの言葉を入力してね" aria-label="ほかの言葉を入力"/>
               <button className="btn btn-primary" type="submit" name="resubmit">言う</button>
-              <button className="btn btn-danger" type="button" name="surrender" onClick={submitSurrender}>負けを認める</button>
+              { currentTurnInfo.wordReading === "？" ? <></> : <>
+                <button className="btn btn-danger" type="button" name="surrender" onClick={submitSurrender}>負けを認める</button>
+              </>
+              }
             </div>
           </form>
         </>);

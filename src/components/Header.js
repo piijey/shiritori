@@ -53,7 +53,7 @@ export const useHeader = ( version ) => {
                         <h2><RiRobot2Line aria-label="ボット"/></h2>
                         <ul>
                         <li>単語の読みの取得とぼっとの単語選択には、<a href="https://github.com/takuyaa/kuromoji.js" rel="noreferrer" target="_blank">形態素解析器 kuromoji.js</a> と <a href="https://taku910.github.io/mecab/#download" rel="noreferrer" target="_blank">IPA辞書</a> を利用しています</li>
-                        <li>さらに詳しくは、<a href="https://github.com/piijey/shiritori" rel="noreferrer" target="_blank">しりとりぼっとの GitHub リポジトリ <BsGithub/></a> をご参照ください</li>
+                        <li>さらに詳しくは、<a href="https://github.com/piijey/shiritori" rel="noreferrer" target="_blank">しりとりぼっとの GitHub リポジトリ <BsGithub aria-label="GitHubのロゴ"/></a> をご参照ください</li>
                         </ul>
                     </div>
                     <div class="modal-footer py-2">

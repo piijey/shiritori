@@ -101,11 +101,41 @@ function App() {
             { message }
           </div>
           { wordSubmissionForm }
-          <button className="btn btn-secondary btn-sm" type="button" onClick={handleGameStateChange}>しりとりをやめる</button>
-        </div>
+          <button className="btn btn-secondary btn-sm" type="button" onClick={handleOpenModalQuit}>しりとりをやめる</button>
+          {isModalQuitOpen && <ConfirmQuitModal onClose={handleCloseModalQuit} />}
+          </div>
       </div>
     </>)
   };
+
+    //やめるか確認するモーダル
+    const [isModalQuitOpen, setModalQuitOpen] = useState(false);
+    const handleOpenModalQuit = () => setModalQuitOpen(true);
+    const handleCloseModalQuit = () => setModalQuitOpen(false);
+
+    function confirmQuit () {
+      setModalQuitOpen(false);
+      handleGameStateChange();
+    }
+
+    const ConfirmQuitModal = ({ onClose }) => (
+      <div className="modal" style={{ display: 'block' }}>
+        <div className="modal-dialog">
+          <div className="modal-content modal-quit">
+            <div class="modal-header py-2">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
+            </div>
+            <div class="modal-body p-2">
+              しりとりをやめる？
+            </div>
+            <div class="modal-footer py-2">
+              <button type="button" class="btn btn-secondary" aria-label="やめない" onClick={onClose}>やめない</button>
+              <button type="button" class="btn btn-danger" aria-label="やめる" onClick={confirmQuit}>やめる</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
   const finishedPage = () => {
     return (<>

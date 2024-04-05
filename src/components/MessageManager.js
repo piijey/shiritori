@@ -29,10 +29,12 @@ export const useMessageManager = ( currentTurnInfo ) => {
             </>)
         } else {
             if ( info.player === 'user' ) {
+                let question = "選ぶ？";
+                if (info.wordReading === '？') { question = "選んでね"; }
                 messageContent = (<>
                     {messageContent}
                     <div className='debug-info'>{info.validationInfo}みたいだね</div>
-                    <div>ほかの「<b>{info.nextStartWith}</b>」から始まる言葉を選ぶ？</div>
+                    <div>ほかの「<b>{info.nextStartWith}</b>」から始まる言葉を{question}</div>
                 </>)
             } else {
                 messageContent = (<>

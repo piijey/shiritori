@@ -61,6 +61,10 @@ ul {
   background-color: #7f8a96;
 }
 
+.modal-quit {
+  background-color: #7f8a96;
+}
+
 .input-container {
   position: fixed;
   bottom: 0;
