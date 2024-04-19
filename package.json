@@ -1,6 +1,6 @@
 {
   "name": "shiritori",
-  "version": "0.1.2",
+  "version": "0.2",
   "private": true,
   "homepage": "https://piijey.github.io/shiritori",
   "dependencies": {
@@ -14,7 +14,7 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
-    "build:dict": "node shiritori_dict/create_shiritori_dict.js && cp shiritori_dict/dict/nouns.json public/shiritori_dict/",
+    "build:dict": "sh shiritori_dict_sudachi/run_create.sh",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
