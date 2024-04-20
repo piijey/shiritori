@@ -1,14 +1,20 @@
 # しりとり
 しりとりぼっとのリポジトリです。
-https://piijey.github.io/shiritori で v0.1 (かいはつばん) を公開中。
+https://piijey.github.io/shiritori で v0.2 (かいはつばん) を公開中。
 
 しりとりぼっとは、ユーザーがぼっと (bot) とのしりとりを楽しむことができる React 製ウェブアプリケーションです。入力された単語の読みの付与や、単語がルールに沿っているかの判定も自動で行ないます。約7万語の広範な語彙を持つしりとりぼっとと対戦して、あなたの言葉の知識と機敏さを試してみましょう！
 
 
+## リリースノート
+- v0.2 ぼっとの知ってる言葉が増えたよ (2024/04/21)
+    - 読みの取得と単語選択に利用する辞書を、IPADic から SudachiDict に変更
+- v0.1 勝敗がわかるようになったよ (2024/02/23)
+- v0.0 しりとりぼっと公開 (2024/02/04)
+
 ## 主な特徴
 - しりとりグリッドボード: 中央に配置されたグリッドボードで、ゲームの進行状況やこれまでに出た単語を視覚的に一覧できます（自動スクロール機能付き）
 - 自動判定機能: 入力された単語の読み、しりとりのルールに沿っているか、次に言うべき単語の開始文字など、ゲームの進行に必要な情報をリアルタイムで自動判定します
-- しりとりぼっと: 約7万語の語彙を有するインテリジェントな対戦相手、挑戦的で刺激的なゲーム体験を提供します
+- しりとりぼっと: 約14万語の語彙を有するインテリジェントな対戦相手、挑戦的で刺激的なゲーム体験を提供します
 - クライアントサイドで完結: サーバーを必要とせず、すべての処理がユーザーのブラウザ上で完結するので、軽快にゲームを楽しむことができます
 
 
@@ -16,7 +22,7 @@ https://piijey.github.io/shiritori で v0.1 (かいはつばん) を公開中。
 [公開中のページ](https://piijey.github.io/shiritori) にアクセスすれば、すぐに遊ぶことができます。ローカルで起動する場合は、次の手順でセットアップしてみてください。
 
 ### 前提条件
-- Node.js の最新版がインストールされていること
+- Node.js v20 がインストールされていること
 - npm (または yarn など) が利用可能であること
 
 ### インストール
@@ -29,13 +35,6 @@ git clone https://github.com/piijey/shiritori.git
 ```sh
 cd shiritori
 npm install
-```
-
-**形態素解析器のセットアップ**  
-読みの取得には、[kuromoji.js](https://github.com/takuyaa/kuromoji.js) （日本語形態素解析器）を利用します。
-npm でインストールした `kuromoji/dict/` 下のファイルを、 `public/` 下にディレクトリごとコピーします。
-```sh
-cp -r node_modules/kuromoji/dict public/kuromoji-dict
 ```
 
 アプリケーションをローカルで起動します。
@@ -51,12 +50,12 @@ npm start
 
 技術的な詳細については [`documents/`](./documents/) の以下のページをご参照ください。
 
-- [しりとり辞書](./documents/shiritori_dict.md)：ぼっとのターンで単語を選択するための辞書
+- [しりとり辞書](./shiritori_dict/shiritori_dict_sudachi.md)：ぼっとのターンで単語を選択するための辞書
 - [技術詳細](./documents/details.md)：アプリの各ページ、React の状態管理を使用したゲームの流れ
 
 
 ## お礼
-読みの取得と単語選択には、[kuromoji.js](https://github.com/takuyaa/kuromoji.js) と [IPA辞書](https://taku910.github.io/mecab/#download) を利用しています。
+読みの取得と単語選択には、[kuromoji.js](https://github.com/takuyaa/kuromoji.js) と [SudachiDict](https://github.com/WorksApplications/SudachiDict) を利用しています。
 
 タイトルのフォントは、Google Font から ["Monomaniac One" (Designed by Maniackers Design)](https://fonts.google.com/specimen/Monomaniac+One) を利用しています。
 

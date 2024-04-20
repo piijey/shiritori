@@ -6,12 +6,15 @@ export const useMessageManager = ( currentTurnInfo ) => {
     const [ message, setMessage ] = useState(null);
 
     const renderTurnWord = (info) => {
-        const Icon = currentTurnInfo.player === 'user' ? RiUser5Line : RiRobot2Line;
-        const player = currentTurnInfo.player === 'user' ? 'ユーザー' : 'ボット';
-        const messageClassName = `message-${currentTurnInfo.player}`;
         if ( info.word ) {
-            return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> {currentTurnInfo.word}（{currentTurnInfo.wordReading}）</div>);
+            const Icon = currentTurnInfo.player === 'user' ? RiUser5Line : RiRobot2Line;
+            const player = currentTurnInfo.player === 'user' ? 'ユーザー' : 'ボット';
+            const messageClassName = `message-${currentTurnInfo.player}`;
+                return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> {currentTurnInfo.word}（{currentTurnInfo.wordReading}）</div>);
         } else {
+            const Icon = RiUser5Line;
+            const player = 'ユーザー';
+            const messageClassName = 'message-user';
             return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> 情けをかける </div>);
         };
     };

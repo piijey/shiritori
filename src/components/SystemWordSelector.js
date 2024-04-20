@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
 
-export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTurnInfo ) => {
+export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTurnInfo, shiritoriDictPath ) => {
     const [shiritoriDictObj, setShiritoriDictObj] = useState(null);
     const [systemWordStartWith, setSystemWordStartWith] = useState(null);
     const [systemTurnInfo, setSystemTurnInfo] = useState(null);
 
     useEffect(() => {
-        fetch(process.env.PUBLIC_URL + "/shiritori_dict/nouns.json")
+        fetch(shiritoriDictPath)
         .then(response => response.json())
         .then((data) => {
             setShiritoriDictObj(data);
+            console.log('しりとり辞書を読み込んだよ');
         })
         .catch (error => {
-            console.error('しりとり辞書が読めなかったよ:', error);
+            console.error('しりとり辞書が読み込めなかったよ:', error);
         });
+        // eslint-disable-next-line
     }, []); //アプリのマウント時のみ実行
 
 
@@ -29,32 +31,30 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
 
     useEffect(() => {
         if ( !systemWordStartWith ) { return };
-        let selectedWord = systemWordStartWith; //仮
-        let selectedWordReading = systemWordStartWith;  //仮
+        const info = {
+            word: null,
+            wordReading: null, //仮
+            nextStartWith: systemWordStartWith,
+            validationResult: null,
+            validationInfo: null,
+            player: "system",
+        };
 
         // 次の文字が設定されたら、システムの次の言葉を選択
         setTimeout(() => {
-            if (shiritoriDictObj[systemWordStartWith]) {
+            if ( shiritoriDictObj && shiritoriDictObj[systemWordStartWith] ) {
                 const randomIndex = Math.floor(Math.random() * shiritoriDictObj[systemWordStartWith].length);
                 const randomWord = shiritoriDictObj[systemWordStartWith][randomIndex];
-                console.log(randomWord);
-                selectedWord = randomWord.surface;
-                selectedWordReading = randomWord.reading;
+                info.word = randomWord.surface;
+                info.wordReading = randomWord.reading;
             } else {
-                console.log(`${systemWordStartWith} で始まる単語が見つからなかったよ`);
-            }
-
-            setSystemTurnInfo({
-                word: selectedWord,
-                wordReading: selectedWordReading,
-                nextStartWith: systemWordStartWith,
-                validationResult: null,
-                validationInfo: null,
-                player: "system",
-            });
-
+                info.validationInfo = `${systemWordStartWith} で始まる言葉が見つからなかった`;
+            };
+            console.log(info);
+            setSystemTurnInfo(info);
             setSystemWordStartWith(null);
         }, 200);
+
         // eslint-disable-next-line
     }, [systemWordStartWith]);
 

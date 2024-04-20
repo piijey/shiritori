@@ -6,17 +6,12 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
 
   function handleSubmit(event) {
     event.preventDefault(); // フォームのデフォルトの送信を防止
-    const submitter = event.nativeEvent.submitter; // 押されたボタンを識別
-    if ( submitter.name === 'submit' ) {
-      submitWord(event);
-    } else if ( submitter.name === 'resubmit' ) {
-      submitWord(event);
-    }
+    submitWord(event);
   };
 
   function submitWord(event) {
     const formData = new FormData(event.target);
-    const text = formData.get("text");
+    const text = formData.get("text").toLowerCase();
     setUserInput({ text: text, reading: null });
 
     // 入力フィールドの値をクリアする
@@ -24,9 +19,15 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
     inputField.value = "";
   };
 
+  function containsNonKatakana(str) {
+    // カタカナ以外の文字が含まれる
+    const nonKatakanaRegex = /[^\u30A0-\u30FF]/;
+    return nonKatakanaRegex.test(str);
+  }
+
   useEffect(() => { // userInput の更新を監視
     // 形態素解析で読みを取得
-    if (!tokenizer) {
+    if ( userInput.text && !tokenizer) {
       console.error("トークナイザが利用できません");
       return
     }
@@ -36,16 +37,17 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
       const tokens = tokenizer.tokenize(userInput.text);
       let reading = "";
       let validationInfo = null; //読み・形態素のチェック結果
+      console.log("tokens:", tokens);
 
       for (const token of tokens) {
-        if (token.reading === undefined) {
-          validationInfo = `ぼっとの知らない言葉`;
-          reading = "？";
-          break;
-        } else if (token.pos !== '名詞') {
+        if (token.pos !== '名詞') {
           validationInfo = `名詞以外（${token.surface_form}: ${token.pos}）`;
           reading = "？";
           break;
+        } else if ( token.reading === undefined || containsNonKatakana(token.reading )) {
+            validationInfo = `ぼっとの知らない言葉`;
+            reading = "？";
+            break;
         } else {
           reading += token.reading;
         };

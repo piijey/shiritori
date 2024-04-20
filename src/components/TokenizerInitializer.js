@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 
 var kuromoji = require('kuromoji');
 
-export const useTokenizerInitializer = () => {
+export const useTokenizerInitializer = ( kuromojiDictPath ) => {
     // Kuromojiトークナイザの初期化、完了したら子コンポーネントにトークナイザを渡す
 
     const [loading, setLoading] = useState(true);
     const [tokenizer, setTokenizer] = useState(null);
+    const [ifLoadingFail, setIfLoadingFail ] = useState(false);
 
     useEffect(() => { //アプリのマウント時にkuromojiトークナイザを初期化
         if ( !loading ) {
@@ -16,7 +17,7 @@ export const useTokenizerInitializer = () => {
         function initializeTokenizer() {
         return new Promise((resolve, reject) => {
             kuromoji.builder(
-            { dicPath: process.env.PUBLIC_URL + "/kuromoji-dict/" }
+            { dicPath: kuromojiDictPath }
             ).build((err, buildTokenizer) => {
             if (err) {
                 reject(err);
@@ -31,16 +32,16 @@ export const useTokenizerInitializer = () => {
         try {
             const tokenizer = await initializeTokenizer();
             setTokenizer(tokenizer);
-            console.log("トークナイザを初期化しました");
-        } catch (err) {
-            console.error("トークナイザの初期化に失敗しました", err);
-        } finally {
+            console.log("トークナイザをロードしたよ");
             setLoading(false);
+        } catch (err) {
+            console.error("トークナイザのロードに失敗したよ", err);
+            setIfLoadingFail(true);
         }
         }
         loadTokenizer();
     // eslint-disable-next-line
     }, []);
-    
-    return { loading, tokenizer };
+
+    return { loading, tokenizer, ifLoadingFail };
 };

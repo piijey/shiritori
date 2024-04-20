@@ -2,7 +2,7 @@ import { RiUser5Line, RiRobot2Line, RiInformationLine } from "react-icons/ri";
 import { BsGithub } from "react-icons/bs";
 import { useState } from 'react';
 
-export const useHeader = ( version ) => {
+export const useHeader = ( version, dictName, dictLefUrl ) => {
     const Header = () => (
         <>
         <div className='header-container row align-items-center'>
@@ -52,7 +52,7 @@ export const useHeader = ( version ) => {
                         <Rules/>
                         <h2><RiRobot2Line aria-label="ボット"/></h2>
                         <ul>
-                        <li>単語の読みの取得とぼっとの単語選択には、<a href="https://github.com/takuyaa/kuromoji.js" rel="noreferrer" target="_blank">形態素解析器 kuromoji.js</a> と <a href="https://taku910.github.io/mecab/#download" rel="noreferrer" target="_blank">IPA辞書</a> を利用しています</li>
+                        <li>単語の読みの取得とぼっとの単語選択には、<a href="https://github.com/takuyaa/kuromoji.js" rel="noreferrer" target="_blank">形態素解析器 kuromoji.js</a> と <a href={dictLefUrl} rel="noreferrer" target="_blank">{dictName}</a> を利用しています</li>
                         <li>さらに詳しくは、<a href="https://github.com/piijey/shiritori" rel="noreferrer" target="_blank">しりとりぼっとの GitHub リポジトリ <BsGithub aria-label="GitHubのロゴ"/></a> をご参照ください</li>
                         </ul>
                     </div>

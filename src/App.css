@@ -96,11 +96,11 @@ ul {
 }
 
 .message-user {
-  color: #caf1f1;
+  color: #fee5c8;
 }
 
 .message-system {
-  color: #fee5c8;
+  color: #caf1f1;
 }
 
 .debug-info {
@@ -120,6 +120,12 @@ ul {
   max-height: 65vh;
   min-width: 80vw;
   scrollbar-color: #3c424a #76818d; /* #thumb #track */
+}
+
+@media (max-height: 780px) {
+  .grid-scroller {
+    max-height: 50vh;
+  }
 }
 
 /* safari */
@@ -143,20 +149,20 @@ ul {
 
 .usersurface {
   color: #535353;
-  background-color: #f3fafa; /* 薄い青色の背景 */
+  background-color: #faf2ea; /* 薄い橙色の背景 */
 }
 
 .userreading {
   color: black;
-  background-color: #caf1f1; /* 青色の背景 */
+  background-color: #fee5c8; /* 橙色の背景 */
 }
 
 .systemsurface {
   color: #535353;
-  background-color: #faf2ea; /* 薄い橙色の背景 */
+  background-color: #f3fafa; /* 薄い青色の背景 */
 }
 
 .systemreading {
   color: black;
-  background-color: #fee5c8; /* 橙色の背景 */
+  background-color: #caf1f1; /* 青色の背景 */
 }

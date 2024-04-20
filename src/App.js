@@ -25,14 +25,21 @@ WebFont.load({
 });
 
 function App() {
-  const { Header, Rules, wordsExample } = useHeader("v0.1.2 かいはつばん");
-  const { loading, tokenizer } = useTokenizerInitializer();
+  const dictInfo = {
+    name: "SudachiDict",
+    kuromojiDictPath: "https://piijey.github.io/resources/kuromoji-dict-sudachi",
+    shiritoriDictPath: process.env.PUBLIC_URL + "/shiritori_dict/sudachi-nouns.json",
+    refUrl: "https://github.com/WorksApplications/SudachiDict",
+  };
+  const { Header, Rules, wordsExample } = useHeader("v0.2 かいはつばん", dictInfo.name, dictInfo.refUrl);
+
+  const { loading, tokenizer, ifLoadingFail } = useTokenizerInitializer(dictInfo.kuromojiDictPath);
   const [ words, setWords ] = useState(wordsExample);
 
   const { gameState, handleGameStateChange, currentTurnInfo, setCurrentTurnInfo, winner, setWinner } = useGameStateManager(words, setWords, wordsExample);
   const { wordSubmissionForm } = useWordSubmissionForm( currentTurnInfo, tokenizer, setCurrentTurnInfo, setWinner );
   useRuleValidator(currentTurnInfo, setCurrentTurnInfo, words);
-  useSystemWordSelector( gameState, currentTurnInfo, setCurrentTurnInfo);
+  useSystemWordSelector( gameState, currentTurnInfo, setCurrentTurnInfo, dictInfo.shiritoriDictPath);
   const { renderGrid } = useShiritoriGrid(words);
   const { message } = useMessageManager( currentTurnInfo );
 
@@ -54,11 +61,16 @@ function App() {
       </div>
       <div className='input-container'>
         <div className='card align-items-center input-card'>
-          {loading ? <>
+          {loading ? <> { ifLoadingFail ?
+            <div className='system-message'>
+              辞書の読み込みに失敗したよ
+            </div>
+            : <>
             <div className='system-message'>
               辞書を読み込み中
               <BarLoader color='white' />
             </div>
+            </>}
             <button className="btn btn-outline-primary" disabled aria-label="辞書の読み込みが完了したらボタンが有効になります">はじめる</button>
           </>
           : <>
@@ -122,15 +134,15 @@ function App() {
       <div className="modal" style={{ display: 'block' }}>
         <div className="modal-dialog">
           <div className="modal-content modal-quit">
-            <div class="modal-header py-2">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
+            <div className="modal-header py-2">
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
             </div>
-            <div class="modal-body p-2">
+            <div className="modal-body p-2">
               しりとりをやめる？
             </div>
-            <div class="modal-footer py-2">
-              <button type="button" class="btn btn-secondary" aria-label="やめない" onClick={onClose}>やめない</button>
-              <button type="button" class="btn btn-danger" aria-label="やめる" onClick={confirmQuit}>やめる</button>
+            <div className="modal-footer py-2">
+              <button type="button" className="btn btn-secondary" aria-label="やめない" onClick={onClose}>やめない</button>
+              <button type="button" className="btn btn-danger" aria-label="やめる" onClick={confirmQuit}>やめる</button>
             </div>
           </div>
         </div>
