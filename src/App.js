@@ -27,7 +27,8 @@ WebFont.load({
 function App() {
   const dictInfo = {
     name: "SudachiDict",
-    kuromojiDictPath: "https://piijey.github.io/resources/kuromoji-dict-sudachi",
+    //kuromojiDictPath: "https://piijey.github.io/resources/kuromoji-dict-sudachi/",
+    kuromojiDictPath: process.env.PUBLIC_URL + "/kuromoji-dict-sudachi/",
     shiritoriDictPath: process.env.PUBLIC_URL + "/shiritori_dict/sudachi-nouns.json",
     refUrl: "https://github.com/WorksApplications/SudachiDict",
   };
