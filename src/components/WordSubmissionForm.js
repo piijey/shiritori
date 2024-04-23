@@ -109,8 +109,8 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
       setWordSubmissionForm(<>
         <form onSubmit={handleSubmit}>
           <div className="input-group p-2">
-            <input name='text' type="text" className="form-control" placeholder="次の言葉を入力してね" aria-label="次の言葉を入力"/>
-            <button className="btn btn-primary" type="submit" name="submit">言う</button>
+            <input id="wordInput" name='text' type="text" className="form-control" placeholder="次の言葉を入力してね" aria-label="次の言葉を入力"/>
+            <button id="wordSubmitButton" className="btn btn-primary" type="submit" name="submit" aria-label="送信">言う</button>
           </div>
         </form>
       </>);
@@ -120,10 +120,10 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
         setWordSubmissionForm(<>
           <form onSubmit={handleSubmit}>
             <div className="input-group p-2">
-              <input name='text' type="text" className="form-control" placeholder="ほかの言葉を入力してね" aria-label="ほかの言葉を入力"/>
-              <button className="btn btn-primary" type="submit" name="resubmit">言う</button>
+              <input id="wordReInput" name='text' type="text" className="form-control" placeholder="ほかの言葉を入力してね" aria-label="ほかの言葉を入力"/>
+              <button id="wordReSubmitButton" className="btn btn-primary" type="submit" name="resubmit" aria-label="再送信">言う</button>
               { currentTurnInfo.wordReading === "？" ? <></> : <>
-                <button className="btn btn-danger" type="button" name="surrender" onClick={submitSurrender}>負けを認める</button>
+                <button id="surrenderButton" className="btn btn-danger" type="button" name="surrender" onClick={submitSurrender} aria-label="負けを認めてしりとりを終了">負けを認める</button>
               </>
               }
             </div>
@@ -133,8 +133,8 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
         setWordSubmissionForm(<>
           <div className='align-items-center'>
             <div className="input-group p-2">
-              <button className="btn btn-warning" type="submit" onClick={submitBeFaceful}>情けをかける</button>
-              <button className="btn btn-danger" type="button" onClick={submitWin}>勝ちを宣言する</button>
+              <button id="beFacefulButton" className="btn btn-warning" type="submit" onClick={submitBeFaceful} aria-label="情けをかけてしりとりを続ける">情けをかける</button>
+              <button id="submitWinButton" className="btn btn-danger" type="button" onClick={submitWin} aria-label="勝ちを宣言してしりとりを終了">勝ちを宣言する</button>
             </div>
           </div>
         </>);

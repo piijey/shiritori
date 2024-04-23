@@ -45,7 +45,7 @@ export const useHeader = ( version, dictName, dictLefUrl ) => {
                 <div className="modal-content modal-rules">
                     <div class="modal-header py-2">
                         <h2 class="modal-title">しりとりぼっとについて</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
+                        <button id="xcloseInfoModalButton" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
                     </div>
                     <div class="modal-body p-2">
                         <h2>ルール</h2>
@@ -57,7 +57,7 @@ export const useHeader = ( version, dictName, dictLefUrl ) => {
                         </ul>
                     </div>
                     <div class="modal-footer py-2">
-                        <button type="button" class="btn btn-primary" aria-label="閉じる" onClick={onClose}>とじる</button>
+                        <button id="closeInfoModalButton" type="button" class="btn btn-primary" aria-label="閉じる" onClick={onClose}>とじる</button>
                     </div>
                 </div>
             </div>
