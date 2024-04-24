@@ -5,7 +5,7 @@
 しりとり辞書 （SudachiDict版）は、[WorksApplications/SudachiDict: A lexicon for Sudachi](https://github.com/WorksApplications/SudachiDict) を元に作成しました。
 
 ## 詳細
-SudachiDict 20240409 small_lex.csv で品詞が `名詞,普通名詞,一般` である形態素の中から、次に該当するものを除いた約1万4千件を「しりとり辞書（SudachiDict版）」に格納した。
+SudachiDict 20240409 small_lex.csv で品詞が `名詞,普通名詞,一般` である形態素の中から、単独で読みが形態素解析の結果と一致することを主な目的として、次に該当するものを除いた。結果として得られた約1万4千件を「しりとり辞書（SudachiDict版）」に格納した。
 
 - カラムに記載された読みと、解析結果の読みが不一致
 - 解析結果に名詞以外が含まれる
@@ -23,7 +23,7 @@ SudachiDict 20240409 small_lex.csv で品詞が `名詞,普通名詞,一般` で
     ```sh
     npm run build:dict
     ```
-    - 本体は [`shiritori_dict/create_shiritori_dict_sudachi.js`](../shiritori_dict/create_shiritori_dict_sudachi.js)
+    - 本体は [`shiritori_dict/create_from_sudachidict/create_shiritori_dict_sudachi.js`](../shiritori_dict/create_from_sudachidict/create_shiritori_dict_sudachi.js)
 
 
 ### しりとり辞書の仕様

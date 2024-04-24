@@ -26,4 +26,4 @@ package-lock.json
 public/kuromoji-dict*
 
 *~
-shiritori_dict/resource/*
+shiritori_dict/create_from_ipadic/resource/*

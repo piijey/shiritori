@@ -9,17 +9,17 @@
 ### 作り方
 - [MeCab: Yet Another Part-of-Speech and Morphological Analyzer](https://taku910.github.io/mecab/#download) のリンクから、`mecab-ipadic-2.7.0-20070801.tar.gz` をダウンロードして、解凍します
     ```sh
-    cd shiritori_dict/resource/
+    cd shiritori_dict/create_from_ipadic/resource/
     tar -zxvf mecab-ipadic-2.7.0-20070801.tar.gz
     ```
 - `package.json` に次の行を追加
   ```js
   "scripts": {
-    "build:dict": "node shiritori_dict/create_shiritori_dict.js && cp shiritori_dict/dict/nouns.json public/shiritori_dict/",
+    "build:dict": "node shiritori_dict/create_from_ipadic/create_shiritori_dict.js && cp shiritori_dict/create_from_ipadic/dict/nouns.json public/shiritori_dict/create_from_ipadic/",
     //...
   },
   ```
-- 辞書を作るスクリプト (本体は [`shiritori_dict/create_shiritori_dict.js`](../shiritori_dict/create_shiritori_dict.js)) を実行します
+- 辞書を作るスクリプト (本体は [`shiritori_dict/create_from_ipadic/create_shiritori_dict.js`](../shiritori_dict/create_from_ipadic/create_shiritori_dict.js)) を実行します
     ```sh
     npm run build:dict
     ```

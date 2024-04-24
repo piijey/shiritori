@@ -50,7 +50,7 @@ npm start
 
 技術的な詳細については [`documents/`](./documents/) の以下のページをご参照ください。
 
-- [しりとり辞書](./shiritori_dict/shiritori_dict_sudachi.md)：ぼっとのターンで単語を選択するための辞書
+- [しりとり辞書](./shiritori_dict/create_from_sudachidict/shiritori_dict_sudachi.md)：ぼっとのターンで単語を選択するための辞書
 - [技術詳細](./documents/details.md)：アプリの各ページ、React の状態管理を使用したゲームの流れ
 
 
