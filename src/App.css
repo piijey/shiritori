@@ -65,6 +65,11 @@ ul {
   background-color: #7f8a96;
 }
 
+.modal-finish {
+  background-color: transparent;
+  margin-top: 80px;
+}
+
 .input-container {
   position: fixed;
   bottom: 0;

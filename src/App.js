@@ -150,6 +150,33 @@ function App() {
       </div>
     );
 
+    //最後にイラストメッセージを表示するモーダル
+    const [isModalIllustOpen, setModalIllustOpen] = useState(false);
+    const handleOpenModalIllust = () => setModalIllustOpen(true);
+    const handleCloseModalIllust = () => setModalIllustOpen(false);
+
+    useEffect(() => {
+      if (gameState === 'finished') {
+        handleOpenModalIllust();
+        setModalIllustOpen(true);
+      }
+    }, [gameState]);
+  
+
+    const ModalIllust = ({ onClose }) => (
+      <div className="modal" style={{ display: 'block' }}>
+        <div className="modal-dialog">
+          <div className="modal-content modal-finish">
+            <div className="modal-header py-2">
+              <button id="xcloseModalButton" type="button" className="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
+            </div>
+            やったあ
+          </div>
+        </div>
+      </div>
+    );
+
+
   const finishedPage = () => {
     return (<>
     <div className='container p-0'>
@@ -163,6 +190,7 @@ function App() {
     </div>
     <div className='input-container'>
       <div className='card align-items-center input-card'>
+      {isModalIllustOpen && <ModalIllust onClose={handleCloseModalIllust} />}
         <div id="finishedMessage" className='system-message'>
           { winner === 'user' ? <>
               <p>あなたの勝ち <RiUser5Line className='iconLarge' aria-label="ユーザー"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
