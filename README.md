@@ -57,9 +57,9 @@ npm start
 ## お礼
 読みの取得と単語選択には、[kuromoji.js](https://github.com/takuyaa/kuromoji.js) と [SudachiDict](https://github.com/WorksApplications/SudachiDict) を利用しています。
 
-タイトルのフォントは、Google Font から ["Monomaniac One" (Designed by Maniackers Design)](https://fonts.google.com/specimen/Monomaniac+One) を利用しています。
+最終ページのイラストは、[海](https://twitter.com/umi321052)さんに描いていただきました。
 
-アプリの [favicon](./public/favicon.ico) は、ChatGPT + DALL·E で生成しました。
+タイトルのフォントは、Google Font から ["Monomaniac One" (Designed by Maniackers Design)](https://fonts.google.com/specimen/Monomaniac+One) を利用しています。
 
 アプリを作るにあたり、X/Twitter のフォロワーをはじめとするみなさんに遊んでいただき、感謝しています。温かい励ましや、自分だけでは気づかないいろいろなことについて、有益なコメントをいただいています。
 

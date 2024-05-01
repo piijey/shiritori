@@ -58,16 +58,25 @@ ul {
 }
 
 .modal-rules {
-  background-color: #7f8a96;
+  background-color: rgba(93, 105, 116, 0.95);
+}
+
+.modal-rules a {
+  color: #80b2fc;
 }
 
 .modal-quit {
-  background-color: #7f8a96;
+  margin-top: 40vh;
+  background-color: rgba(93, 105, 116, 0.95);
 }
 
 .modal-finish {
-  background-color: transparent;
-  margin-top: 80px;
+  background-color: rgba(93, 105, 116, 0.95);
+  margin-top: 70px;
+}
+
+.modal-finish img {
+  max-width: 100%;  
 }
 
 .input-container {
@@ -170,4 +179,11 @@ ul {
 .systemreading {
   color: black;
   background-color: #caf1f1; /* 青色の背景 */
+}
+
+.finish-message {
+  font-size: xx-large;
+  font-family: 'Monomaniac One', sans-serif;
+  text-align: center;
+  margin-bottom: 0;
 }

@@ -24,6 +24,7 @@ yarn-error.log*
 
 package-lock.json
 public/kuromoji-dict*
+public/pic
 
 *~
 shiritori_dict/resource/*

@@ -53,6 +53,7 @@ export const useHeader = ( version, dictName, dictLefUrl ) => {
                         <h2><RiRobot2Line aria-label="ボット"/></h2>
                         <ul>
                         <li>単語の読みの取得とぼっとの単語選択には、<a href="https://github.com/takuyaa/kuromoji.js" rel="noreferrer" target="_blank">形態素解析器 kuromoji.js</a> と <a href={dictLefUrl} rel="noreferrer" target="_blank">{dictName}</a> を利用しています</li>
+                        <li>最終ページのイラストは、<a href="https://twitter.com/umi321052" rel="noreferrer" target="_blank">海</a>さんに描いていただきました</li>
                         <li>さらに詳しくは、<a href="https://github.com/piijey/shiritori" rel="noreferrer" target="_blank">しりとりぼっとの GitHub リポジトリ <BsGithub aria-label="GitHubのロゴ"/></a> をご参照ください</li>
                         </ul>
                     </div>

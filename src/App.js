@@ -10,8 +10,7 @@ import { useSystemWordSelector } from './components/SystemWordSelector';
 import { useShiritoriGrid } from './components/ShiritoriGrid';
 import { useMessageManager } from './components/MessageManager';
 
-import { RiUser5Line, RiRobot2Line, RiShiningLine } from "react-icons/ri";
-import { GiDiamondTrophy } from "react-icons/gi";
+import { RiRobot2Line } from "react-icons/ri";
 
 import BarLoader from "react-spinners/BarLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,7 +31,7 @@ function App() {
     shiritoriDictPath: process.env.PUBLIC_URL + "/shiritori_dict/sudachi-nouns.json",
     refUrl: "https://github.com/WorksApplications/SudachiDict",
   };
-  const { Header, Rules, wordsExample } = useHeader("v0.2 かいはつばん", dictInfo.name, dictInfo.refUrl);
+  const { Header, Rules, wordsExample } = useHeader("v0.2.1 かいはつばん", dictInfo.name, dictInfo.refUrl);
 
   const { loading, tokenizer, ifLoadingFail } = useTokenizerInitializer(dictInfo.kuromojiDictPath);
   const [ words, setWords ] = useState(wordsExample);
@@ -162,20 +161,47 @@ function App() {
       }
     }, [gameState]);
   
-
-    const ModalIllust = ({ onClose }) => (
+    const ModalIllust = ({ onClose }) => {
+      let picturePath = null;
+      let pictureAlt = '';
+      let finishTitle = '';
+      let finishMessage = '';
+      if (winner === 'user') {
+        finishTitle = 'あなた の かち';
+        picturePath = `${process.env.PUBLIC_URL}/pic/finish_user.webp`;
+        pictureAlt = 'オレンジのシャツの子どもが金色の王冠を頭に誇らしげに立ち、横でキュートなロボットが笑顔で拍手しているイラスト'
+        finishMessage = (<><p>おめでとう</p></>);
+      } else if (winner === 'system') {
+        finishTitle = 'ぼっと の かち';
+        picturePath = `${process.env.PUBLIC_URL}/pic/finish_system.webp`;
+        pictureAlt = 'キュートなロボットが笑顔で金色のトロフィーを手に持ち、横で子どもが嬉しそうに拍手しているイラスト'
+        finishMessage = (<><p>やったあ</p></>);
+      } else {
+        finishTitle = 'しりとり は おしまい';
+        picturePath = `${process.env.PUBLIC_URL}/pic/finish_even.webp`;
+        pictureAlt = 'キュートなロボットと元気いっぱいな子どもがハイタッチして楽しそうにしているイラスト';
+        finishMessage = (<><p>たのしかったね</p></>);
+      }
+      return (
       <div className="modal" style={{ display: 'block' }}>
         <div className="modal-dialog">
           <div className="modal-content modal-finish">
             <div className="modal-header py-2">
+              <h2>{finishTitle}</h2>
               <button id="xcloseModalButton" type="button" className="btn-close" data-bs-dismiss="modal" aria-label="閉じる" onClick={onClose}></button>
             </div>
-            やったあ
+            <div className="modal-body p-2">
+              <img className='finish-picture' src={picturePath} alt={pictureAlt}></img>
+              <div className='finish-message'>{finishMessage}</div>
+            </div>
+            <div className="modal-footer py-2">
+              <button id="closeModalButton" type="button" className="btn btn-primary" aria-label="イラストを閉じる" onClick={onClose}>とじる</button>
+            </div>
           </div>
         </div>
       </div>
     );
-
+  }
 
   const finishedPage = () => {
     return (<>
@@ -192,20 +218,9 @@ function App() {
       <div className='card align-items-center input-card'>
       {isModalIllustOpen && <ModalIllust onClose={handleCloseModalIllust} />}
         <div id="finishedMessage" className='system-message'>
-          { winner === 'user' ? <>
-              <p>あなたの勝ち <RiUser5Line className='iconLarge' aria-label="ユーザー"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
-              <p>おめでとう！</p>
-            </> : <>
-            { winner === 'system' ? <>
-              <p>ぼっとの勝ち <RiRobot2Line className='iconLarge' aria-label="ボット"/><GiDiamondTrophy className='iconLarge' aria-label="トロフィー"/><RiShiningLine aria-label="きらきら"/></p>
-              <p>やったあ！</p>
-            </> : <>
-              <p>しりとりはおしまい <RiUser5Line className='iconLarge' aria-label="ユーザー"/><RiRobot2Line className='iconLarge' aria-label="ボット"/></p>
-            </> }
-          </> }
-          <p>また遊んでね</p>
-          <button id="returnToStartButton" className="btn btn-primary" type="button" onClick={handleGameStateChange} aria-label="しりとりを最初から始める">はじめに戻る</button>
+          ありがとう <span className='message-system'><RiRobot2Line className='iconLarge' aria-label="ボット"/></span> また遊んでね
         </div>
+        <button id="returnToStartButton" className="btn btn-primary" type="button" onClick={handleGameStateChange} aria-label="しりとりを最初から始める">はじめに戻る</button>
       </div>
     </div>
   </>)
