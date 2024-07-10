@@ -3,11 +3,11 @@ const csv = require('csv-parser');
 const iconv = require('iconv-lite');
 
 const inputFilePaths = [
-    'shiritori_dict/resource/mecab-ipadic-2.7.0-20070801/Noun.adverbal.csv',
-    'shiritori_dict/resource/mecab-ipadic-2.7.0-20070801/Noun.csv',
-    'shiritori_dict/resource/mecab-ipadic-2.7.0-20070801/Noun.verbal.csv'
+    'shiritori_dict/from_ipadic/resource/mecab-ipadic-2.7.0-20070801/Noun.adverbal.csv',
+    'shiritori_dict/from_ipadic/resource/mecab-ipadic-2.7.0-20070801/Noun.csv',
+    'shiritori_dict/from_ipadic/resource/mecab-ipadic-2.7.0-20070801/Noun.verbal.csv'
 ];
-const outputFilePath = 'shiritori_dict/dict/nouns.json';
+const outputFilePath = 'shiritori_dict/from_ipadic/ipa-nouns.json';
 
 // CSVファイルを処理する関数
 function processCSV(filePath) {

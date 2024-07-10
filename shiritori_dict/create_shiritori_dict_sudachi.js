@@ -2,7 +2,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 
 const inputFilePaths = [
-    'shiritori_dict/resource/small_lex_noun.csv'
+    'shiritori_dict/from_sudachidict/resource/small_lex_noun.csv'
 ];
 const outputFilePath = 'public/shiritori_dict/sudachi-nouns.json';
 const dicPath = 'public/kuromoji-dict-sudachi'

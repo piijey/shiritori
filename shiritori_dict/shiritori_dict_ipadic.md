@@ -15,7 +15,7 @@
 - `package.json` に次の行を追加
   ```js
   "scripts": {
-    "build:dict": "node shiritori_dict/create_shiritori_dict.js && cp shiritori_dict/dict/nouns.json public/shiritori_dict/",
+    "build:dict": "node shiritori_dict/create_shiritori_dict.js && cp shiritori_dict/from_ipadic/nouns.json public/shiritori_dict/ipa-nouns.json",
     //...
   },
   ```
