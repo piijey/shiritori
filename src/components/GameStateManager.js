@@ -1,3 +1,7 @@
+/* Copyright (C) 2024 PiiJey
+ * This file is part of Shiritori/しりとりぼっと and is distributed under the GPL-2.0 license.
+ */
+
 import { useState, useEffect } from 'react';
 
 export const useGameStateManager = ( words, setWords, wordsExample ) => {
@@ -40,13 +44,19 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
         else if ( !currentTurnInfo && gameState === 'inProgress' ) {
             const initialTurnInfo = {
               // 各プロパティの役割は、documents/details.md を参照
-                word: "しりとり",
-                wordReading: "シリトリ",
-                nextStartWith: "シ",
+                word: 'しりとり',
+                wordReading: 'シリトリ',
+                nextStartWith: 'シ',
                 validationResult: null,
                 validationInfo: null,
-                player: "system",
-                };
+                player: 'system',
+                wikiInfo: {
+                  word: 'しりとり',
+                  title: 'しりとり',
+                  url: 'https://ja.wikipedia.org/wiki/%E3%81%97%E3%82%8A%E3%81%A8%E3%82%8A',
+                  description: '言葉遊びの一つ',
+                },
+              };
             setCurrentTurnInfo(initialTurnInfo);
             setWords([]);
         }

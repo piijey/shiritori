@@ -1,3 +1,7 @@
+/* Copyright (C) 2024 PiiJey
+ * This file is part of Shiritori/しりとりぼっと and is distributed under the GPL-2.0 license.
+ */
+
 import { useState, useEffect } from 'react';
 import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
 
@@ -10,7 +14,19 @@ export const useMessageManager = ( currentTurnInfo ) => {
             const Icon = currentTurnInfo.player === 'user' ? RiUser5Line : RiRobot2Line;
             const player = currentTurnInfo.player === 'user' ? 'ユーザー' : 'ボット';
             const messageClassName = `message-${currentTurnInfo.player}`;
-                return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> {currentTurnInfo.word}（{currentTurnInfo.wordReading}）</div>);
+            const wordContent = currentTurnInfo.wikiInfo ? (
+                <>
+                    {info.word}（{info.wordReading}）
+                    <div className='system-message debug-info'>
+                        <a href={currentTurnInfo.wikiInfo.url} target="_blank" rel="noopener noreferrer">
+                            {currentTurnInfo.wikiInfo.title}：{currentTurnInfo.wikiInfo.description}
+                        </a>
+                    </div>
+                </>
+            ) : (
+                `${info.word}（${info.wordReading}）`
+            );
+            return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> {wordContent} </div>);
         } else {
             const Icon = RiUser5Line;
             const player = 'ユーザー';

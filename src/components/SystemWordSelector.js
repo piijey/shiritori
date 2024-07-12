@@ -1,4 +1,9 @@
+/* Copyright (C) 2024 PiiJey
+ * This file is part of Shiritori/しりとりぼっと and is distributed under the GPL-2.0 license.
+ */
+
 import { useState, useEffect } from 'react';
+import { fetchWikipediaInfo } from './FetchWikipediaInfo';
 
 export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTurnInfo, shiritoriDictPath ) => {
     const [shiritoriDictObj, setShiritoriDictObj] = useState(null);
@@ -31,29 +36,46 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
 
     useEffect(() => {
         if ( !systemWordStartWith ) { return };
+        // 次の文字が設定されたら、システムの次の言葉を選択
         const info = {
             word: null,
-            wordReading: null, //仮
+            wordReading: null,
             nextStartWith: systemWordStartWith,
             validationResult: null,
             validationInfo: null,
+            wikiInfo: null,
             player: "system",
         };
 
-        // 次の文字が設定されたら、システムの次の言葉を選択
-        setTimeout(() => {
+        const selectWordAndFetchWiki = async () => {
             if ( shiritoriDictObj && shiritoriDictObj[systemWordStartWith] ) {
                 const randomIndex = Math.floor(Math.random() * shiritoriDictObj[systemWordStartWith].length);
                 const randomWord = shiritoriDictObj[systemWordStartWith][randomIndex];
                 info.word = randomWord.surface;
                 info.wordReading = randomWord.reading;
+
+                const timeout = new Promise ((_, reject) =>
+                    setTimeout (() => reject(new Error('Wikipedia fetch timeout')), 2000)
+                );
+                try {
+                    const wikiInfo = await Promise.race([
+                        fetchWikipediaInfo(info.word),
+                        timeout
+                    ]);
+                    info.wikiInfo = wikiInfo;
+                } catch (error) {
+                    console.log('Wikipedia情報が取得できなかったよ:', error);
+                    // タイムアウトまたはエラーの場合、wikiInfoはnullのまま
+                }
             } else {
                 info.validationInfo = `${systemWordStartWith} で始まる言葉が見つからなかった`;
             };
-            console.log(info);
+            console.log("systemWord:", info);
             setSystemTurnInfo(info);
             setSystemWordStartWith(null);
-        }, 200);
+        }
+
+        setTimeout(selectWordAndFetchWiki, 200);
 
         // eslint-disable-next-line
     }, [systemWordStartWith]);

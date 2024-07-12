@@ -1,3 +1,7 @@
+/* Copyright (C) 2024 PiiJey
+ * This file is part of Shiritori/しりとりぼっと and is distributed under the GPL-2.0 license.
+ */
+
 import { useEffect, useState } from 'react';
 
 export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTurnInfo, setWinner ) => {
@@ -62,6 +66,7 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
           wordReading: userInput.reading,
           validationInfo: userInput.info,
           validationResult: null,
+          wikiInfo: null,
           player: 'user',
         };
       });
