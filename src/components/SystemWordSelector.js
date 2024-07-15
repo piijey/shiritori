@@ -55,16 +55,23 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
                 info.wordReading = randomWord.reading;
 
                 const timeout = new Promise ((_, reject) =>
-                    setTimeout (() => reject(new Error('Wikipedia fetch timeout')), 2000)
+                    setTimeout (() => reject(new Error('Wikipedia fetch timeout')), 1500)
                 );
                 try {
+                    console.time('fetchWikiInfo');
                     const wikiInfo = await Promise.race([
+                        // Wikipedia情報が取得できたらすぐ、またはタイムアウト1.5秒で返す
                         fetchWikipediaInfo(info.word),
                         timeout
                     ]);
                     info.wikiInfo = wikiInfo;
+                    console.timeEnd('fetchWikiInfo');
                 } catch (error) {
-                    console.log('Wikipedia情報が取得できなかったよ:', error);
+                    if ( error.message === 'Wikipedia fetch timeout' ) {
+                        console.log('Wikipedia情報の取得がタイムアウトしました');
+                    } else {
+                        console.log('Wikipedia情報の取得中にエラーが発生しました:', error);
+                    }
                     // タイムアウトまたはエラーの場合、wikiInfoはnullのまま
                 }
             } else {
@@ -75,7 +82,7 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
             setSystemWordStartWith(null);
         }
 
-        setTimeout(selectWordAndFetchWiki, 200);
+        selectWordAndFetchWiki();
 
         // eslint-disable-next-line
     }, [systemWordStartWith]);

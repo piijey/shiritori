@@ -31,7 +31,7 @@ function App() {
     shiritoriDictPath: process.env.PUBLIC_URL + "/shiritori_dict/sudachi-nouns.json",
     refUrl: "https://github.com/WorksApplications/SudachiDict",
   };
-  const { Header, Rules, wordsExample } = useHeader("v0.2.1 かいはつばん", dictInfo.name, dictInfo.refUrl);
+  const { Header, Rules, wordsExample } = useHeader("v0.4 かいはつばん", dictInfo.name, dictInfo.refUrl);
 
   const { loading, tokenizer, ifLoadingFail } = useTokenizerInitializer(dictInfo.kuromojiDictPath);
   const [ words, setWords ] = useState(wordsExample);

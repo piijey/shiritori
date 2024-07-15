@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
+import { BsWikipedia } from "react-icons/bs";
 
 export const useMessageManager = ( currentTurnInfo ) => {
     const [ prevTurnWord, setPrevTurnWord ] = useState(null);
@@ -14,18 +15,30 @@ export const useMessageManager = ( currentTurnInfo ) => {
             const Icon = currentTurnInfo.player === 'user' ? RiUser5Line : RiRobot2Line;
             const player = currentTurnInfo.player === 'user' ? 'ユーザー' : 'ボット';
             const messageClassName = `message-${currentTurnInfo.player}`;
-            const wordContent = currentTurnInfo.wikiInfo ? (
-                <>
+
+            const createWikiLink = () => {
+                if (currentTurnInfo.wikiInfo) {
+                    const description = currentTurnInfo.wikiInfo.description.slice(0, 40) + '...';
+                    return <>
+                        <div className='system-message word-info'>
+                            <a href={currentTurnInfo.wikiInfo.url}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                area-label={`${currentTurnInfo.wikiInfo.title}についてのWikipediaページを開く`}>
+                                <BsWikipedia />{currentTurnInfo.wikiInfo.title}: {description}
+                            </a>
+                        </div>
+                    </>
+                } else {
+                    return null;
+                }
+            };
+
+            const wordContent = <>
                     {info.word}（{info.wordReading}）
-                    <div className='system-message debug-info'>
-                        <a href={currentTurnInfo.wikiInfo.url} target="_blank" rel="noopener noreferrer">
-                            {currentTurnInfo.wikiInfo.title}：{currentTurnInfo.wikiInfo.description}
-                        </a>
-                    </div>
+                    {createWikiLink()}
                 </>
-            ) : (
-                `${info.word}（${info.wordReading}）`
-            );
+
             return (<div className={messageClassName}><Icon className="iconLarge" aria-label={player} /> {wordContent} </div>);
         } else {
             const Icon = RiUser5Line;
@@ -42,23 +55,30 @@ export const useMessageManager = ( currentTurnInfo ) => {
         </>);
 
         if ( info.validationResult ) {
-            messageContent = (<>
-                {messageContent}
-                <div>次は、「<b>{info.nextStartWith}</b>」から始まる言葉を選んでね</div>
-            </>)
+            if ( info.player === 'user' ) {
+                messageContent = (<>
+                    {messageContent}
+                    <div>考え中 ...</div>
+                </>)
+            } else {
+                messageContent = (<>
+                    {messageContent}
+                    <div>次は、「<b>{info.nextStartWith}</b>」から始まる言葉を選んでね</div>
+                </>)
+            }
         } else {
             if ( info.player === 'user' ) {
                 let question = "選ぶ？";
                 if (info.wordReading === '？') { question = "選んでね"; }
                 messageContent = (<>
                     {messageContent}
-                    <div className='debug-info'>{info.validationInfo}みたいだね</div>
+                    <div className='word-info'>{info.validationInfo}みたいだね</div>
                     <div>ほかの「<b>{info.nextStartWith}</b>」から始まる言葉を{question}</div>
                 </>)
             } else {
                 messageContent = (<>
                     {messageContent}
-                    <div className='debug-info'>{info.validationInfo}みたいだね</div>
+                    <div className='word-info'>{info.validationInfo}みたいだね</div>
                     <div>どうしよう！</div>
                 </>)
             };
