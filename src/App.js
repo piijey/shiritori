@@ -15,7 +15,7 @@ import { RiRobot2Line } from "react-icons/ri";
 import BarLoader from "react-spinners/BarLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
+import packageJson from '../package.json';
 
 WebFont.load({
   google: {
@@ -31,7 +31,7 @@ function App() {
     shiritoriDictPath: process.env.PUBLIC_URL + "/shiritori_dict/sudachi-nouns.json",
     refUrl: "https://github.com/WorksApplications/SudachiDict",
   };
-  const { Header, Rules, wordsExample } = useHeader("v0.4 かいはつばん", dictInfo.name, dictInfo.refUrl);
+  const { Header, Rules, wordsExample } = useHeader(`v${packageJson.version} かいはつばん`, dictInfo.name, dictInfo.refUrl);
 
   const { loading, tokenizer, ifLoadingFail } = useTokenizerInitializer(dictInfo.kuromojiDictPath);
   const [ words, setWords ] = useState(wordsExample);
