@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import { RiUser5Line, RiRobot2Line } from "react-icons/ri";
 import { BsWikipedia } from "react-icons/bs";
+import { FcWikipedia } from "react-icons/fc";
 
 export const useMessageManager = ( currentTurnInfo ) => {
     const [ prevTurnWord, setPrevTurnWord ] = useState(null);
@@ -17,15 +18,17 @@ export const useMessageManager = ( currentTurnInfo ) => {
             const messageClassName = `message-${currentTurnInfo.player}`;
 
             const createWikiLink = () => {
-                if (currentTurnInfo.wikiInfo) {
+                if ( currentTurnInfo.wikiInfo ) {
+                    const IconWiki = currentTurnInfo.wikiInfo.source === 'Wikipedia' ? BsWikipedia : FcWikipedia;
+                    console.log(currentTurnInfo.wikiInfo.title, currentTurnInfo.wikiInfo.source);
                     const description = currentTurnInfo.wikiInfo.description.slice(0, 40) + '...';
                     return <>
                         <div className='system-message word-info'>
                             <a href={currentTurnInfo.wikiInfo.url}
                                 target='_blank'
                                 rel='noopener noreferrer'
-                                area-label={`${currentTurnInfo.wikiInfo.title}についてのWikipediaページを開く`}>
-                                <BsWikipedia />{currentTurnInfo.wikiInfo.title}: {description}
+                                area-label={`${currentTurnInfo.wikiInfo.title}についての${currentTurnInfo.wikiInfo.source}ページを開く`}>
+                                <IconWiki /> {currentTurnInfo.wikiInfo.title}: {description}
                             </a>
                         </div>
                     </>

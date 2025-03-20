@@ -53,8 +53,9 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
                 wikiInfo: {
                   word: 'しりとり',
                   title: 'しりとり',
-                  url: 'https://ja.wikipedia.org/wiki/%E3%81%97%E3%82%8A%E3%81%A8%E3%82%8A',
-                  description: '言葉遊びの一つ',
+                  url: 'https://ja.wiktionary.org/wiki/しりとり',
+                  description: '前の人が言った単語の最後の文字から始まる言葉を順番に言っていく言葉遊び。通常「ん」で終わる単語を言った者は負けとなる。',
+                  source: 'Wiktionary'
                 },
               };
             setCurrentTurnInfo(initialTurnInfo);
