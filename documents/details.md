@@ -64,8 +64,6 @@
 #### ぼっとのターン
 ぼっとのターンでは、`SystemWordSelector` コンポーネントが動作します。「しりとり辞書」から単語を選択して、`currentTurnInfo` に格納します。この時、プレイヤーとしてぼっと (`system`) を設定します。
 
-選択された単語について、Wikipedia ページの概要を [Wikimedia REST API](https://ja.wikipedia.org/api/rest_v1/) から取得します。
-
 ### 2. ルール評価
 プレーヤーが単語を選択／入力した後、その単語がゲームのルールに沿っているかどうかを`RuleValidator` コンポーネントで評価します（単語が適切な文字で始まっているか、「ン」で終わっていないかなど）。評価結果は、`currentTurnInfo` の `validationResult` プロパティに格納します。
 
@@ -73,4 +71,9 @@
 ルール評価結果に応じて、`GameStateManager` コンポーネントで、ゲームの状態を更新します。入力／選択された単語がルールに沿っている場合、しりとりグリッドボードに単語が追加し、ゲームは次のターンに進みます。しりとりグリッドボードは、 `ShiritoriGrid` コンポーネントで視覚的に表示します。
 
 ### 4. システムメッセージ
+選択された単語に関連する情報を API で取得します。
+
+- Wikipedia [Wikimedia REST API](https://ja.wikipedia.org/api/rest_v1/)
+- Wiktionary [MediaWiki API](https://ja.wiktionary.org/w/api.php)
+
 ルール評価結果に応じて、`MessageManager` コンポーネントで、システムメッセージを更新します。システムメッセージで、入力／選択された単語、次の単語の開始文字などの情報をユーザーにお知らせします。

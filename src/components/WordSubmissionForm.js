@@ -66,7 +66,6 @@ export const useWordSubmissionForm = ( currentTurnInfo, tokenizer, setCurrentTur
           wordReading: userInput.reading,
           validationInfo: userInput.info,
           validationResult: null,
-          wikiInfo: null,
           player: 'user',
         };
       });

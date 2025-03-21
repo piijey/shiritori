@@ -3,7 +3,6 @@
  */
 
 import { useState, useEffect } from 'react';
-import { fetchWikiInfo } from './FetchWikipediaInfo';
 
 export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTurnInfo, shiritoriDictPath ) => {
     const [shiritoriDictObj, setShiritoriDictObj] = useState(null);
@@ -43,8 +42,7 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
             nextStartWith: systemWordStartWith,
             validationResult: null,
             validationInfo: null,
-            wikiInfo: null,
-            player: "system",
+            player: 'system',
         };
 
         const selectWord = async () => {
@@ -53,7 +51,6 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
                 const randomWord = shiritoriDictObj[systemWordStartWith][randomIndex];
                 info.word = randomWord.surface;
                 info.wordReading = randomWord.reading;
-                info.wikiInfo = await fetchWikiInfo(info.word);
             
             } else {
                 info.validationInfo = `${systemWordStartWith} で始まる言葉が見つからなかった`;

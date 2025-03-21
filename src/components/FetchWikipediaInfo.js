@@ -5,7 +5,8 @@
 export async function fetchWikiInfo(word) {
     // 2つの API を fetch する
     try {
-        console.time('fetchWikiInfo');
+        const timeId = `fetchWikiInfo-${word}-${Date.now()}`;
+        console.time(timeId);
         const wikipediaPromise = fetchWikipediaInfo(word);
         const wiktionaryPromise = fetchWiktionaryInfo(word);
         const fetchComplete = Promise.all([
@@ -21,7 +22,7 @@ export async function fetchWikiInfo(word) {
             timeout
         ]);
         const wikiInfo = results.find(result => result !== null) || null;
-        console.timeEnd('fetchWikiInfo');
+        console.timeEnd(timeId);
         return wikiInfo;
     } catch (error) {
         if ( error.message === 'Wikipedia fetch timeout' ) {
