@@ -3,7 +3,6 @@
  */
 
 import { useState, useEffect } from 'react';
-import { fetchWikipediaInfo } from './FetchWikipediaInfo';
 
 export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTurnInfo, shiritoriDictPath ) => {
     const [shiritoriDictObj, setShiritoriDictObj] = useState(null);
@@ -43,37 +42,16 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
             nextStartWith: systemWordStartWith,
             validationResult: null,
             validationInfo: null,
-            wikiInfo: null,
-            player: "system",
+            player: 'system',
         };
 
-        const selectWordAndFetchWiki = async () => {
+        const selectWord = async () => {
             if ( shiritoriDictObj && shiritoriDictObj[systemWordStartWith] ) {
                 const randomIndex = Math.floor(Math.random() * shiritoriDictObj[systemWordStartWith].length);
                 const randomWord = shiritoriDictObj[systemWordStartWith][randomIndex];
                 info.word = randomWord.surface;
                 info.wordReading = randomWord.reading;
-
-                const timeout = new Promise ((_, reject) =>
-                    setTimeout (() => reject(new Error('Wikipedia fetch timeout')), 1500)
-                );
-                try {
-                    console.time('fetchWikiInfo');
-                    const wikiInfo = await Promise.race([
-                        // Wikipedia情報が取得できたらすぐ、またはタイムアウト1.5秒で返す
-                        fetchWikipediaInfo(info.word),
-                        timeout
-                    ]);
-                    info.wikiInfo = wikiInfo;
-                    console.timeEnd('fetchWikiInfo');
-                } catch (error) {
-                    if ( error.message === 'Wikipedia fetch timeout' ) {
-                        console.log('Wikipedia情報の取得がタイムアウトしました');
-                    } else {
-                        console.log('Wikipedia情報の取得中にエラーが発生しました:', error);
-                    }
-                    // タイムアウトまたはエラーの場合、wikiInfoはnullのまま
-                }
+            
             } else {
                 info.validationInfo = `${systemWordStartWith} で始まる言葉が見つからなかった`;
             };
@@ -82,7 +60,7 @@ export const useSystemWordSelector = ( gameState, currentTurnInfo, setCurrentTur
             setSystemWordStartWith(null);
         }
 
-        selectWordAndFetchWiki();
+        selectWord();
 
         // eslint-disable-next-line
     }, [systemWordStartWith]);

@@ -1,6 +1,6 @@
 body {
-  background-color: #282d34;
-  color: white;
+  background-color: #141827;
+  color: #F0F5F9; /* soft white */
 }
 
 h1, h2, h3, h4 {
@@ -33,7 +33,11 @@ ul {
 }
 
 a {
-  color: #80b2fc;
+  color: #96c7ff;
+}
+
+td {
+  padding: 1.5px 3px ;
 }
 
 .app {
@@ -50,7 +54,7 @@ a {
   background-color: transparent;
   padding: 0 0 5px 0;
   width: 100%;
-  background-color: #454f5b;
+  background-color: #1A2238; /* deep navy blue */
   text-align: center;
 }
 
@@ -62,16 +66,16 @@ a {
 }
 
 .modal-rules {
-  background-color: rgba(93, 105, 116, 0.95);
+  background-color: #454B5B;
 }
 
 .modal-quit {
   margin-top: 40vh;
-  background-color: rgba(93, 105, 116, 0.95);
+  background-color: #454B5B;
 }
 
 .modal-finish {
-  background-color: rgba(93, 105, 116, 0.95);
+  background-color: #454B5B;
   margin-top: 70px;
 }
 
@@ -89,11 +93,11 @@ a {
 .input-card {
   text-align: center;
   padding: 5px 10px 15px 10px;
-  background-color: #454f5b;
-  border-color: #282d34;
+  background-color: #1A2238; /* deep navy blue */
+  border-color: #141827;
   border-radius: 0;
   border-width: 5px 0 0 0;
-  color: #fff;
+  color: #F0F5F9; /* soft white */
 }
 
 .system-message {
@@ -109,11 +113,11 @@ a {
 }
 
 .message-user {
-  color: #fee5c8;
+  color: #FF8C42; /* tangerine orange */
 }
 
 .message-system {
-  color: #caf1f1;
+  color: #38E4AE; /* mint green */
 }
 
 .word-info {
@@ -122,7 +126,6 @@ a {
 
 .grid-container {
   padding: 5px;
-  background-color: #454f5b;
   margin: 5px 0 80px 0;
 }
 
@@ -131,7 +134,6 @@ a {
   overflow-y: scroll;
   max-height: 60vh;
   min-width: 80vw;
-  scrollbar-color: #3c424a #76818d; /* #thumb #track */
 }
 
 @media (max-height: 780px) {
@@ -140,43 +142,29 @@ a {
   }
 }
 
-/* safari */
-::-webkit-scrollbar {
-  width: auto;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #3c424a;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: #76818d;
-}
-
 .shiritorigrid {
   text-align: center; /* テキストを中央に配置 */
   font-size: small;
 }
 
 .usersurface {
-  color: #535353;
-  background-color: #faf2ea; /* 薄い橙色の背景 */
+  color:  #141827;
+  background-color: #FF8C42; /* tangerine orange */
 }
 
 .userreading {
-  color: black;
-  background-color: #fee5c8; /* 橙色の背景 */
+  color:  #141827;
+  background-color: #fcbd95; /* lighter tangerine orange */
 }
 
 .systemsurface {
-  color: #535353;
-  background-color: #f3fafa; /* 薄い青色の背景 */
+  color:  #141827;
+  background-color: #38E4AE; /* mint green */
 }
 
 .systemreading {
-  color: black;
-  background-color: #caf1f1; /* 青色の背景 */
+  color:  #141827;
+  background-color: #9ff3d8; /* lighter mint green */
 }
 
 .finish-message {

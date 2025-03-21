@@ -50,12 +50,6 @@ export const useGameStateManager = ( words, setWords, wordsExample ) => {
                 validationResult: null,
                 validationInfo: null,
                 player: 'system',
-                wikiInfo: {
-                  word: 'しりとり',
-                  title: 'しりとり',
-                  url: 'https://ja.wikipedia.org/wiki/%E3%81%97%E3%82%8A%E3%81%A8%E3%82%8A',
-                  description: '言葉遊びの一つ',
-                },
               };
             setCurrentTurnInfo(initialTurnInfo);
             setWords([]);
